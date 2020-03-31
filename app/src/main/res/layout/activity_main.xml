@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -76,18 +76,17 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:paddingHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Relatório Geral"
-        android:fontFamily="@font/font_bold"
-        android:textSize="18sp"
         android:layout_marginVertical="12dp"
-        />
+        android:fontFamily="@font/font_bold"
+        android:paddingHorizontal="16dp"
+        android:text="Relatório Geral"
+        android:textSize="18sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
 
@@ -100,7 +99,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ao.covidzero.covidzero.ItemRelatorio
+            <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/confirmado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +107,7 @@
                 app:nome="Confirmados"
                 app:qtd="7" />
 
-            <ao.covidzero.covidzero.ItemRelatorio
+            <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/suspeitos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
                 app:nome="Suspeitos"
                 app:qtd="1200" />
 
-            <ao.covidzero.covidzero.ItemRelatorio
+            <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/recuperados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +123,7 @@
                 app:nome="Recuperados"
                 app:qtd="1" />
 
-            <ao.covidzero.covidzero.ItemRelatorio
+            <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/mortos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
 
         </LinearLayout>
 
-        <ao.covidzero.covidzero.ItemRelatorio
+        <ao.covidzero.covidzero.widget.ItemRelatorio
             android:id="@+id/quarentena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

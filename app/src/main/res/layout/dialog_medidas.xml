@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/bt_cancelar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:srcCompat="@drawable/cancel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icone"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:padding="15dp"
+            app:srcCompat="@drawable/metodos" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingRight="8dp">
+
+                <TextView
+                    android:id="@+id/titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font_bold"
+                    android:text="Método de prevenção e sintomas"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/subtitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/font_regular"
+                    android:text="Sintomas, métodos"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="16dp"
+                android:background="@android:color/darker_gray"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_bold"
+        android:paddingLeft="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Métodos de Prevenção"
+        android:textColor="@android:color/black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_metodos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ao.covidzero.covidzero.widget.MenuItemWidget
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icone_menu="1"
+                    app:subtitulo_menu="Na ausência de um lenço opte por usar o antebraço"
+                    app:titulo_menu="Cubra o nariz a boca ao tossir ou espirrar" />
+
+                <ao.covidzero.covidzero.widget.MenuItemWidget
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icone_menu="0"
+                    app:subtitulo_menu="Lave as suas mãos com água ou sabão e desinfecte com álcool em gel"
+                    app:titulo_menu="Lave sempre as mãos" />
+
+                <ao.covidzero.covidzero.widget.MenuItemWidget
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icone_menu="2"
+                    app:subtitulo_menu="O vírus é muito contagioso, evite abraços, beijos ou contacto directo com pessoas. Não permitida aglumerações com mais de 50 pessoas."
+                    app:titulo_menu="Evite locais aglumerados, apertos de mão" />
+
+                <ao.covidzero.covidzero.widget.MenuItemWidget
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icone_menu="3"
+                    app:subtitulo_menu="Fique em casa, assim evitaremos a propagação do vírus. Saia apenas em questões realmente urgentes, como saúde"
+                    app:titulo_menu="Fique em casa" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_bold"
+                android:paddingLeft="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Sintomas do COVID-19"
+                android:textColor="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ao.covidzero.covidzero.widget.SintomaWidget
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icone_menu="0"
+                    app:titulo_menu="Tosse"/>
+
+                <ao.covidzero.covidzero.widget.SintomaWidget
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icone_menu="1"
+                    app:titulo_menu="Febre > 37"
+                    />
+
+                <ao.covidzero.covidzero.widget.SintomaWidget
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icone_menu="2"
+                    app:titulo_menu="Dificuldades de respirar"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

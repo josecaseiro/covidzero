@@ -1,4 +1,4 @@
-package ao.covidzero.covidzero;
+package ao.covidzero.covidzero.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -74,6 +74,8 @@ public class ItemRelatorio extends LinearLayout {
         } finally {
             a.recycle();
         }
+
+
     }
 
     public void setQtd(int qtd){

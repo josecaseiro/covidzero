@@ -1,5 +1,6 @@
 package ao.covidzero.covidzero
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 
 import ao.covidzero.covidzero.dummy.DummyContent
 import ao.covidzero.covidzero.dummy.DummyContent.DummyItem
 import ao.covidzero.covidzero.model.MenuItem
+import kotlinx.android.synthetic.main.dialog_medidas.*
 import kotlinx.android.synthetic.main.fragment_menu_item.*
 
 /**
@@ -33,6 +36,8 @@ class MenuItemFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+
+
     }
 
     override fun onCreateView(
@@ -81,7 +86,22 @@ class MenuItemFragment : Fragment() {
                     "Denúncios, Emergências"
                 ))
 
-                adapter = MenuItemAdapter(lista, listener)
+                adapter = MenuItemAdapter(lista, object:  OnListFragmentInteractionListener {
+                    override fun onListFragmentInteraction(item: MenuItem?) {
+                        if(item?.icone == R.drawable.metodos){
+                            //Mostrar os métodos de prevenção
+                            val dg = android.app.Dialog(context)
+                            dg.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+
+                            dg.setContentView(ao.covidzero.covidzero.R.layout.dialog_medidas)
+                            dg.bt_cancelar.setOnClickListener {
+                                dg.dismiss()
+                            }
+
+                            dg.show()
+                        }
+                    }
+                })
             }
         }
         return view
@@ -90,7 +110,23 @@ class MenuItemFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
-            listener = context
+            //listener = context
+            listener = object:  OnListFragmentInteractionListener {
+                override fun onListFragmentInteraction(item: MenuItem?) {
+                    if(item?.icone == 2){
+                        //Mostrar os métodos de prevenção
+                        val dg = Dialog(context)
+                        dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+                        dg.setContentView(R.layout.dialog_medidas)
+                        dg.bt_cancelar.setOnClickListener {
+                            dg.dismiss()
+                        }
+
+                        dg.show()
+                    }
+                }
+            }
         } else {
 
         }

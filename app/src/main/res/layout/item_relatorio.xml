@@ -11,10 +11,10 @@
         android:id="@+id/qtd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/font_regular"
+        android:fontFamily="@font/font_bold"
         android:text="134"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="10sp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/icone"
