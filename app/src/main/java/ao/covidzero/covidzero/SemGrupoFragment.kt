@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ao.covidzero.covidzero.model.Grupo
 import kotlinx.android.synthetic.main.dialog_nova_comunidade.*
+import kotlinx.android.synthetic.main.fragment_sem_grupo.*
 import kotlinx.android.synthetic.main.fragment_sem_grupo.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +47,36 @@ class SemGrupoFragment : Fragment() {
             dg.setContentView(R.layout.dialog_nova_comunidade)
             dg.bt_cancelar.setOnClickListener {
                 dg.dismiss()
+            }
+
+            dg.bt_criar.setOnClickListener {
+                val nome = dg.edt_nome.text.toString()
+                val actividade = dg.edt_actividade.text.toString()
+                val provincia = dg.edt_provincia.text.toString()
+                val municipio = dg.edt_municipio.text.toString()
+                val bairro = dg.edt_bairro.text.toString()
+                val descricao = dg.edt_descricao.text.toString()
+
+                if( !
+                    (nome.isBlank()
+                            && actividade.isBlank()
+                            && provincia.isBlank()
+                            && municipio.isBlank()
+                            && bairro.isBlank()
+                            )
+                        ){
+                    val grupo = Grupo(R.drawable.grupos,
+                        nome,
+                        actividade,
+                        provincia,
+                        municipio,
+                        bairro,
+                        descricao
+                        )
+
+                    (activity as GruposActivity).addGrupo(grupo)
+                    dg.dismiss()
+                }
             }
 
             dg.show()

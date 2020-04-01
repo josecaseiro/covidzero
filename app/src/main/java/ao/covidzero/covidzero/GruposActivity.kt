@@ -13,7 +13,12 @@ class GruposActivity : AppCompatActivity() {
         setContentView(R.layout.activity_grupos)
 
         supportActionBar?.hide()
+        grupos.add(Grupo(12, "Miro", "","","","","dd"))
+        loadGrupos()
+    }
 
+    public fun addGrupo(grupo:Grupo){
+        grupos.add(grupo)
         loadGrupos()
     }
 
@@ -21,8 +26,8 @@ class GruposActivity : AppCompatActivity() {
     private fun loadGrupos() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = if (grupos.size == 0)  SemGrupoFragment() else  GrupoFragment()
-        fragmentTransaction.add(R.id.frag_frame, fragment)
+        val fragment = if (grupos.size == 0)  SemGrupoFragment() else  GrupoFragment(grupos)
+        fragmentTransaction.replace(R.id.frag_frame, fragment)
         fragmentTransaction.commit()
     }
 }

@@ -4,13 +4,17 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 
 import ao.covidzero.covidzero.GrupoFragment.OnListFragmentInteractionListener
 import ao.covidzero.covidzero.dummy.DummyContent.DummyItem
+import ao.covidzero.covidzero.model.Grupo
 
 import kotlinx.android.synthetic.main.fragment_grupos.view.*
+import kotlinx.android.synthetic.main.fragment_grupos.view.icone
+import kotlinx.android.synthetic.main.fragment_menu_item.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -18,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_grupos.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class GruposAdapter(
-    private val mValues: List<DummyItem>,
+    private val mValues: List<Grupo>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<GruposAdapter.ViewHolder>() {
 
@@ -26,7 +30,7 @@ class GruposAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as Grupo
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -42,8 +46,12 @@ class GruposAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
 
+        holder.mNome.text = item.nome
+        holder.mDescricao.text = item.descricao
+
         with(holder.mView) {
             tag = item
+
             setOnClickListener(mOnClickListener)
         }
     }
@@ -51,7 +59,7 @@ class GruposAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-
-
+        val mNome: TextView = mView.nome
+        val mDescricao: TextView = mView.descricao
     }
 }

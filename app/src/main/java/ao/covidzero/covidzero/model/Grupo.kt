@@ -1,4 +1,12 @@
 package ao.covidzero.covidzero.model
 
-class Grupo(val icone:String, val nome:String, val descricao:String) {
+import java.io.Serializable
+
+class Grupo(val icone:Int,
+            val nome:String,
+            val actividade:String,
+            val provincia:String,
+            val municipio:String,
+            val bairro:String,
+            val descricao:String):Serializable {
 }

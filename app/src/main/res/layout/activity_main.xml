@@ -93,7 +93,7 @@
 
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,20 +109,20 @@
                 app:qtd="7" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
-                android:id="@+id/suspeitos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icone="1"
-                app:nome="Suspeitos"
-                app:qtd="1200" />
-
-            <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/recuperados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icone="2"
                 app:nome="Recuperados"
                 app:qtd="1" />
+
+            <ao.covidzero.covidzero.widget.ItemRelatorio
+                android:id="@+id/suspeitos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icone="1"
+                app:nome="Suspeitos"
+                app:qtd="1200" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/mortos"
@@ -132,22 +132,18 @@
                 app:nome="Mortos"
                 app:qtd="2" />
 
+            <ao.covidzero.covidzero.widget.ItemRelatorio
+                android:id="@+id/quarentena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="10dp"
+                app:icone="4"
+                app:nome="Pessoas em Quarentena"
+                app:qtd="1200" />
+
 
         </LinearLayout>
-
-        <ao.covidzero.covidzero.widget.ItemRelatorio
-            android:id="@+id/quarentena"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="10dp"
-            app:icone="4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:nome="Pessoas em Quarentena"
-            app:qtd="1200" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

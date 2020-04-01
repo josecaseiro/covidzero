@@ -86,7 +86,7 @@
                 android:textColor="@android:color/black" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/edt_nome"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="4dp"
@@ -105,7 +105,7 @@
                 android:textColor="@android:color/black" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edt_actividade"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="4dp"
@@ -135,7 +135,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/edt_provincia"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"
                         android:layout_marginTop="4dp"
@@ -162,7 +162,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText17"
+                        android:id="@+id/edt_municipio"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"
                         android:layout_marginTop="4dp"
@@ -183,7 +183,7 @@
                 android:textColor="@android:color/black" />
 
             <EditText
-                android:id="@+id/editText8"
+                android:id="@+id/edt_bairro"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="4dp"
@@ -202,7 +202,7 @@
                 android:textColor="@android:color/black" />
 
             <EditText
-                android:id="@+id/editText9"
+                android:id="@+id/edt_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_marginTop="4dp"
@@ -212,7 +212,7 @@
                 android:inputType="textMultiLine" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/bt_criar"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|end"

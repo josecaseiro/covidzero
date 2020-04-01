@@ -1,6 +1,7 @@
 package ao.covidzero.covidzero
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,13 +13,14 @@ import android.view.ViewGroup
 
 import ao.covidzero.covidzero.dummy.DummyContent
 import ao.covidzero.covidzero.dummy.DummyContent.DummyItem
+import ao.covidzero.covidzero.model.Grupo
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
  * [GrupoFragment.OnListFragmentInteractionListener] interface.
  */
-class GrupoFragment : Fragment() {
+class GrupoFragment(val grupos:List<Grupo>) : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -46,7 +48,7 @@ class GrupoFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = GruposAdapter(DummyContent.ITEMS, listener)
+                adapter = GruposAdapter( grupos, listener)
             }
         }
         return view
@@ -58,8 +60,10 @@ class GrupoFragment : Fragment() {
             listener = context
         } else {
             listener = object : OnListFragmentInteractionListener {
-                override fun onListFragmentInteraction(item: DummyItem?) {
-
+                override fun onListFragmentInteraction(item: Grupo?) {
+                    val intent = Intent(activity, ChatActivity::class.java)
+                    intent.putExtra("grupo", item)
+                    startActivity(intent)
                 }
             }
 
@@ -84,7 +88,7 @@ class GrupoFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: Grupo?)
     }
 
     companion object {
@@ -95,7 +99,7 @@ class GrupoFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            GrupoFragment().apply {
+            GrupoFragment(mutableListOf()).apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
