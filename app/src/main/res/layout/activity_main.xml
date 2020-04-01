@@ -82,6 +82,7 @@
         android:fontFamily="@font/font_bold"
         android:paddingHorizontal="16dp"
         android:text="Relatório Geral"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

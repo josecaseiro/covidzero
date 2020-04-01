@@ -31,30 +31,11 @@ public class MenuItemWidget extends LinearLayout {
                 0, 0);
 
         try {
-            int ic = a.getInt(R.styleable.MenuItemWidget_icone_menu, 0);
-
-
-            int icone = R.drawable.verified;
-
-            switch (ic){
-                case 0:
-                    icone = R.drawable.lavamaos;
-                    break;
-                case 1:
-                    icone = R.drawable.cubra;
-                    break;
-                case 2:
-                    icone = R.drawable.aglumerados;
-                    break;
-                case 3:
-                    icone = R.drawable.quarentena;
-                    break;
-
-            }
+            int ic = a.getResourceId(R.styleable.MenuItemWidget_icone_menu, 0);
 
             ( (TextView) view.findViewById(R.id.titulo) ).setText( a.getString(R.styleable.MenuItemWidget_titulo_menu) );
             ( (TextView) view.findViewById(R.id.subtitulo) ).setText( a.getString(R.styleable.MenuItemWidget_subtitulo_menu) );
-            ( (ImageView) view.findViewById(R.id.icone) ).setImageResource( icone );
+            ( (ImageView) view.findViewById(R.id.icone) ).setImageResource( ic );
 
         } finally {
             a.recycle();

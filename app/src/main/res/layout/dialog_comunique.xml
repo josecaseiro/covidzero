@@ -35,7 +35,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:padding="15dp"
-            app:srcCompat="@drawable/metodos" />
+            app:srcCompat="@drawable/comunique" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/font_bold"
-                    android:text="Método de prevenção e sintomas"
+                    android:text="Comunique-se"
                     android:textColor="@android:color/black" />
 
                 <TextView
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/font_regular"
-                    android:text="Sintomas, métodos"
+                    android:text="Denúncias, emergência, suspeitas"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
 
@@ -109,71 +109,34 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <ao.covidzero.covidzero.widget.MenuItemWidget
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:icone_menu="@drawable/cubra"
-                    app:subtitulo_menu="Na ausência de um lenço opte por usar o antebraço"
-                    app:titulo_menu="Cubra o nariz a boca ao tossir ou espirrar" />
-
-                <ao.covidzero.covidzero.widget.MenuItemWidget
+                <ao.covidzero.covidzero.widget.ComuniqueItemWidget
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:icone_menu="@drawable/lavamaos"
-                    app:subtitulo_menu="Lave as suas mãos com água ou sabão e desinfecte com álcool em gel"
-                    app:titulo_menu="Lave sempre as mãos" />
-
-                <ao.covidzero.covidzero.widget.MenuItemWidget
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:icone_menu="@drawable/aglumerados"
-                    app:subtitulo_menu="O vírus é muito contagioso, evite abraços, beijos ou contacto directo com pessoas. Não permitida aglumerações com mais de 50 pessoas."
-                    app:titulo_menu="Evite locais aglumerados, apertos de mão" />
-
-                <ao.covidzero.covidzero.widget.MenuItemWidget
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:icone_menu="@drawable/quarentena"
-                    app:subtitulo_menu="Fique em casa, assim evitaremos a propagação do vírus. Saia apenas em questões realmente urgentes, como saúde"
-                    app:titulo_menu="Fique em casa" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_bold"
-                android:paddingLeft="16dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:text="Sintomas do COVID-19"
-                android:textColor="@android:color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ao.covidzero.covidzero.widget.SintomaWidget
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:icone_menu="@drawable/quarentena"
-                    app:titulo_menu="Tosse"/>
-
-                <ao.covidzero.covidzero.widget.SintomaWidget
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icone_menu="@drawable/febre"
-                    app:titulo_menu="Febre > 37"
+                    app:icone_3="@drawable/policia"
+                    app:icone_4="@drawable/telef"
+                    app:titulo="Denuncie irregularidades"
+                    app:subtitulo="113"
                     />
 
-                <ao.covidzero.covidzero.widget.SintomaWidget
+                <ao.covidzero.covidzero.widget.ComuniqueItemWidget
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:icone_menu="@drawable/respirar"
-                    app:titulo_menu="Dificuldades de respirar"
+                    app:icone_3="@drawable/ambulancia"
+                    app:icone_4="@drawable/telef"
+                    app:titulo="Denuncie casos suspeitos"
+                    app:subtitulo="113"
                     />
+
+                <ao.covidzero.covidzero.widget.ComuniqueItemWidget
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icone_3="@drawable/doutor"
+                    app:icone_4="@drawable/message"
+                    app:titulo="Converse com profissional de saúde"
+                    app:subtitulo=""
+                    />
+
+
 
             </LinearLayout>
 

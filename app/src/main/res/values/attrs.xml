@@ -7,8 +7,15 @@
     </declare-styleable>
 
     <declare-styleable name="MenuItemWidget">
-        <attr name="icone_menu" format="integer"/>
+        <attr name="icone_menu" format="reference"/>
         <attr name="titulo_menu" format="string"/>
         <attr name="subtitulo_menu" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ComuniqueItemWidget">
+        <attr name="icone_3" format="reference"/>
+        <attr name="icone_4" format="reference"/>
+        <attr name="titulo" format="string"/>
+        <attr name="subtitulo" format="string"/>
     </declare-styleable>
 </resources>

@@ -13,25 +13,30 @@ import androidx.annotation.Nullable;
 
 import ao.covidzero.covidzero.R;
 
-public class SintomaWidget extends LinearLayout {
+
+public class ComuniqueItemWidget extends LinearLayout {
 
     View view;
 
-    public SintomaWidget(Context context, @Nullable AttributeSet attrs) {
+    public ComuniqueItemWidget(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.sintomas, this);
+        view = layoutInflater.inflate(R.layout.item_metodos_comunique, this);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.MenuItemWidget,
+                R.styleable.ComuniqueItemWidget,
                 0, 0);
 
         try {
-            int ic = a.getResourceId(R.styleable.MenuItemWidget_icone_menu, 0);
-            ( (TextView) view.findViewById(R.id.nome) ).setText( a.getString(R.styleable.MenuItemWidget_titulo_menu) );
+            int ic = a.getResourceId(R.styleable.ComuniqueItemWidget_icone_3, 0);
+            int ic2 = a.getResourceId(R.styleable.ComuniqueItemWidget_icone_4, 0);
+
+            ( (TextView) view.findViewById(R.id.titulo) ).setText( a.getString(R.styleable.ComuniqueItemWidget_titulo) );
+            ( (TextView) view.findViewById(R.id.texto) ).setText( a.getString(R.styleable.ComuniqueItemWidget_subtitulo) );
             ( (ImageView) view.findViewById(R.id.icone) ).setImageResource( ic );
+            ( (ImageView) view.findViewById(R.id.icone2) ).setImageResource( ic2 );
 
         } finally {
             a.recycle();

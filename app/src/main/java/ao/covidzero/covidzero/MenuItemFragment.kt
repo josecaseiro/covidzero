@@ -17,6 +17,7 @@ import ao.covidzero.covidzero.dummy.DummyContent.DummyItem
 import ao.covidzero.covidzero.model.MenuItem
 import kotlinx.android.synthetic.main.dialog_medidas.*
 import kotlinx.android.synthetic.main.fragment_menu_item.*
+import android.content.Intent
 
 /**
  * A fragment representing a list of Items.
@@ -99,6 +100,24 @@ class MenuItemFragment : Fragment() {
                             }
 
                             dg.show()
+                        }
+
+                        if(item?.icone == R.drawable.comunique){
+                            //Mostrar os métodos de prevenção
+                            val dg = android.app.Dialog(context)
+                            dg.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+
+                            dg.setContentView(ao.covidzero.covidzero.R.layout.dialog_comunique)
+                            dg.bt_cancelar.setOnClickListener {
+                                dg.dismiss()
+                            }
+
+                            dg.show()
+                        }
+
+                        else
+                        if (item?.icone == R.drawable.grupos){
+                            startActivity(Intent(context, GruposActivity::class.java))
                         }
                     }
                 })
