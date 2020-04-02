@@ -9,4 +9,5 @@ class Grupo(val icone:Int,
             val municipio:String,
             val bairro:String,
             val descricao:String):Serializable {
+
 }
