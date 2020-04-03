@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/font_regular"
+                android:fontFamily="@font/font_light"
                 android:text="TextView"
                 android:textColor="@android:color/black" />
         </LinearLayout>

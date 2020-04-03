@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = MenuItemFragment()
-        fragmentTransaction.add(R.id.frag_frame, fragment)
+        fragmentTransaction.replace(R.id.frag_frame, fragment)
         fragmentTransaction.commit()
     }
 

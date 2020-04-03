@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="360dp"
+    android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
 
@@ -56,7 +56,7 @@
                     android:id="@+id/titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_bold"
+                    android:fontFamily="@font/font_light"
                     android:text="Criar grupo de apoio"
                     android:textColor="@android:color/black" />
 
@@ -81,7 +81,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/font_regular"
+                android:fontFamily="@font/font_light"
                 android:text="Nome do Grupo"
                 android:textColor="@android:color/black" />
 
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/font_regular"
+                android:fontFamily="@font/font_light"
                 android:text="Actividade"
                 android:textColor="@android:color/black" />
 
@@ -130,7 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:fontFamily="@font/font_regular"
+                        android:fontFamily="@font/font_light"
                         android:text="Província"
                         android:textColor="@android:color/black" />
 
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/font_regular"
+                android:fontFamily="@font/font_light"
                 android:text="Bairro"
                 android:textColor="@android:color/black" />
 
@@ -197,7 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/font_regular"
+                android:fontFamily="@font/font_light"
                 android:text="Descrição"
                 android:textColor="@android:color/black" />
 
@@ -218,6 +218,7 @@
                 android:layout_gravity="right|end"
                 android:layout_margin="14dp"
                 android:background="@drawable/bt_rounded_shape"
+                android:fontFamily="@font/font_light"
                 android:text="Criar grupo"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />

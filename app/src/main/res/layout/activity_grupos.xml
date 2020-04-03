@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="@font/font_bold"
+                    android:fontFamily="@font/font_light"
                     android:text="Grupos e comunidades"
                     android:textColor="@android:color/black" />
 
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/font_regular"
+                    android:fontFamily="@font/font_light"
                     android:text="Grupos e comunidades"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />

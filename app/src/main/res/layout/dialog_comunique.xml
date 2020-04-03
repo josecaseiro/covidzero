@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="360dp"
+    android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
 
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="@font/font_bold"
+                    android:fontFamily="@font/font_light"
                     android:text="Comunique-se"
                     android:textColor="@android:color/black" />
 
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/font_regular"
+                    android:fontFamily="@font/font_light"
                     android:text="Denúncias, emergência, suspeitas"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
@@ -87,10 +87,10 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/font_bold"
+        android:fontFamily="@font/font_light"
         android:paddingLeft="16dp"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:paddingBottom="4dp"
         android:text="Métodos de Prevenção"
         android:textColor="@android:color/black" />
 
@@ -107,35 +107,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="0dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/policia"
                     app:icone_4="@drawable/telef"
-                    app:titulo="Denuncie irregularidades"
-                    app:subtitulo="113"
-                    />
+                    app:subtitulo="111"
+                    app:titulo="Denuncie irregularidades" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/ambulancia"
                     app:icone_4="@drawable/telef"
-                    app:titulo="Denuncie casos suspeitos"
-                    app:subtitulo="113"
-                    />
+                    app:subtitulo="111"
+                    app:titulo="Denuncie casos suspeitos" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/doutor"
                     app:icone_4="@drawable/message"
-                    app:titulo="Converse com profissional de saúde"
                     app:subtitulo=""
-                    />
-
+                    app:titulo="Converse com profissional de saúde" />
 
 
             </LinearLayout>
