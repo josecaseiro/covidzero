@@ -60,7 +60,7 @@ class MenuItemFragment : Fragment() {
                 lista.add(MenuItem(
                     R.drawable.exame,
                     "Exame",
-                    "Febre, estado omunológico"
+                    "Febre, estado imunológico"
                 ))
 
                 lista.add(MenuItem(
@@ -84,7 +84,7 @@ class MenuItemFragment : Fragment() {
                 lista.add(MenuItem(
                     R.drawable.comunique,
                     "Comunique-se",
-                    "Denúncios, Emergências"
+                    "Denúncias, Emergências"
                 ))
 
                 adapter = MenuItemAdapter(lista, object:  OnListFragmentInteractionListener {

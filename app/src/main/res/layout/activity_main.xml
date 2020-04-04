@@ -140,7 +140,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="10dp"
                 app:icone="4"
-                app:nome="Pessoas em Quarentena"
+                app:nome="Quarentena"
                 app:qtd="1200" />
 
 
