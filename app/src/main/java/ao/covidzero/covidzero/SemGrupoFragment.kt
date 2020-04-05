@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ao.covidzero.covidzero.model.Grupo
+import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.dialog_nova_comunidade.*
 import kotlinx.android.synthetic.main.fragment_sem_grupo.*
 import kotlinx.android.synthetic.main.fragment_sem_grupo.view.*
@@ -79,7 +80,12 @@ class SemGrupoFragment : Fragment() {
                 }
             }
 
-            dg.show()
+            Alerter.create(activity!!)
+                .setText("Ainda não é possível criar grupo. Tente mais por favor.")
+                .setIcon(android.R.drawable.stat_sys_warning)
+                .setBackgroundColor(R.color.orange) // Optional - Removes white tint
+                .show()
+            //dg.show()
         }
 
         return v

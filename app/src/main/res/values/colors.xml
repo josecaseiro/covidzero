@@ -7,6 +7,9 @@
     <color name="color2">#2C96C5</color>
     <color name="color3">#CEFC60</color>
     <color name="color4">#1C1C1C</color>
+    <color name="red">#E50B0B</color>
+    <color name="orange">#FF9800</color>
+    <color name="green">#4CAF50</color>
 
 
 </resources>

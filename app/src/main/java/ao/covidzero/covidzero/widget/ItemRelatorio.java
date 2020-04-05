@@ -30,7 +30,7 @@ public class ItemRelatorio extends LinearLayout {
                 0, 0);
 
         try {
-            int qtd = a.getInt(R.styleable.CustomButton_qtd, 0);
+            String qtd = a.getString(R.styleable.CustomButton_qtd);
             String nome = a.getString(R.styleable.CustomButton_nome);
             int ic = a.getInt(R.styleable.CustomButton_icone, 0);
 
@@ -60,7 +60,7 @@ public class ItemRelatorio extends LinearLayout {
                     color = Color.BLACK;
                     break;
                 case 4:
-                    nome = "Pessoas em Quarentena";
+                    nome = "Quarentena";
                     icone = R.drawable.quarentena;
                     color = Color.BLACK;
                     break;
@@ -68,7 +68,7 @@ public class ItemRelatorio extends LinearLayout {
 
             ( (TextView) v.findViewById(R.id.nome) ).setText( nome );
             ( (TextView) v.findViewById(R.id.qtd) ).setTextColor(color);
-            ( (TextView) v.findViewById(R.id.qtd) ).setText( String.valueOf(qtd) );
+            ( (TextView) v.findViewById(R.id.qtd) ).setText( qtd );
             ( (ImageView) v.findViewById(R.id.icone) ).setImageResource(icone);
 
         } finally {

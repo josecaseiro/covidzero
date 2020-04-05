@@ -1,23 +1,27 @@
 package ao.covidzero.covidzero
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-
-import ao.covidzero.covidzero.dummy.DummyContent
-import ao.covidzero.covidzero.dummy.DummyContent.DummyItem
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ao.covidzero.covidzero.model.MenuItem
+import com.tapadoo.alerter.Alerter
+import kotlinx.android.synthetic.main.dialog_comunique.*
 import kotlinx.android.synthetic.main.dialog_medidas.*
-import kotlinx.android.synthetic.main.fragment_menu_item.*
-import android.content.Intent
+import kotlinx.android.synthetic.main.dialog_medidas.bt_cancelar
+
 
 /**
  * A fragment representing a list of Items.
@@ -102,6 +106,20 @@ class MenuItemFragment : Fragment() {
                             dg.show()
                         }
 
+                        if(item?.icone == R.drawable.exame){
+                            //Mostrar os métodos de prevenção
+                            val dg = android.app.Dialog(context)
+                            dg.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+
+                            dg.setContentView(ao.covidzero.covidzero.R.layout.dialog_temperature)
+                            dg.bt_cancelar.setOnClickListener {
+                                dg.dismiss()
+                            }
+
+                            dg.show()
+                        }
+
+                        else
                         if(item?.icone == R.drawable.comunique){
                             //Mostrar os métodos de prevenção
                             val dg = android.app.Dialog(context)
@@ -112,6 +130,30 @@ class MenuItemFragment : Fragment() {
                                 dg.dismiss()
                             }
 
+                            dg.denuncie_1.setOnClickListener {
+                                val phoneIntent = Intent(Intent.ACTION_CALL)
+                                phoneIntent.setData(Uri.parse("tel:111"))
+                                dg.dismiss()
+                                checkPermissionAndCall(phoneIntent)
+                            }
+
+                            dg.denuncie_2.setOnClickListener {
+                                val phoneIntent = Intent(Intent.ACTION_CALL)
+                                phoneIntent.setData(Uri.parse("tel:111"))
+                                dg.dismiss()
+                                checkPermissionAndCall(phoneIntent)
+
+                            }
+
+                            dg.profissional.setOnClickListener {
+                                Alerter.create(activity!!)
+                                    .setText("Nenhum profissional disponível de momente. Tente mais tarde.")
+                                    .setIcon(android.R.drawable.stat_sys_warning)
+                                    .setBackgroundColor(R.color.red) // Optional - Removes white tint
+                                    .show()
+                                dg.dismiss()
+                            }
+
                             dg.show()
                         }
 
@@ -119,11 +161,25 @@ class MenuItemFragment : Fragment() {
                         if (item?.icone == R.drawable.grupos){
                             startActivity(Intent(context, GruposActivity::class.java))
                         }
+                        else
+                            if (item?.icone == R.drawable.mapas){
+                                startActivity(Intent(context, MapActivity::class.java))
+                            }
+
+
+
                     }
                 })
             }
         }
         return view
+    }
+
+    private fun checkPermissionAndCall(phoneIntent: Intent) {
+        if (ActivityCompat.checkSelfPermission(activity!!,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.CALL_PHONE), 1100);
+        } else startActivity(phoneIntent)
     }
 
     override fun onAttach(context: Context) {

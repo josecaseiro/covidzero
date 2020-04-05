@@ -113,6 +113,7 @@
                 android:paddingBottom="16dp">
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
+                    android:id="@+id/denuncie_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/policia"
@@ -121,6 +122,7 @@
                     app:titulo="Denuncie irregularidades" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
+                    android:id="@+id/denuncie_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/ambulancia"
@@ -129,6 +131,7 @@
                     app:titulo="Denuncie casos suspeitos" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
+                    android:id="@+id/profissional"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/doutor"

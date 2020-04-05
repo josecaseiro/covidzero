@@ -13,7 +13,7 @@ class GruposActivity : AppCompatActivity() {
         setContentView(R.layout.activity_grupos)
 
         supportActionBar?.hide()
-        grupos.add(Grupo(12, "Miro", "","","","","dd"))
+        //grupos.add(Grupo(12, "Miro", "","","","","dd"))
         loadGrupos()
     }
 

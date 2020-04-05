@@ -88,10 +88,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/relatorios"
+        >
 
         <LinearLayout
-
+            android:gravity="center_horizontal"
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +109,7 @@
                 android:layout_height="wrap_content"
                 app:icone="0"
                 app:nome="Confirmados"
-                app:qtd="7" />
+                app:qtd="-" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/recuperados"
@@ -115,7 +117,7 @@
                 android:layout_height="wrap_content"
                 app:icone="2"
                 app:nome="Recuperados"
-                app:qtd="1" />
+                app:qtd="-" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/suspeitos"
@@ -123,7 +125,7 @@
                 android:layout_height="wrap_content"
                 app:icone="1"
                 app:nome="Suspeitos"
-                app:qtd="1200" />
+                app:qtd="-" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/mortos"
@@ -131,7 +133,7 @@
                 android:layout_height="wrap_content"
                 app:icone="3"
                 app:nome="Mortos"
-                app:qtd="2" />
+                app:qtd="-" />
 
             <ao.covidzero.covidzero.widget.ItemRelatorio
                 android:id="@+id/quarentena"
@@ -141,7 +143,7 @@
                 android:layout_marginBottom="10dp"
                 app:icone="4"
                 app:nome="Quarentena"
-                app:qtd="1200" />
+                app:qtd="-" />
 
 
         </LinearLayout>
