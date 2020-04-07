@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import ao.covidzero.covidzero.model.Dado;
+import ao.covidzero.covidzero.model.Provincia;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -21,6 +22,9 @@ public interface GetDataService {
 
     @GET("dados/{provincia}")
     Call<Dado> dadosProvincia(@Path("provincia") String provincia);
+
+    @GET("provincias")
+    Call<List<Provincia>> getprovincias();
 
     @FormUrlEncoded
     @POST("usuarios")

@@ -1,5 +1,6 @@
 package ao.covidzero.covidzero
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         loadDados()
 
         showDados()
+
+        linearLayout.setOnClickListener {
+            startActivity(Intent(this@MainActivity, MapActivity::class.java))
+        }
 
     }
 

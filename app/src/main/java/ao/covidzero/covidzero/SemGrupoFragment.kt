@@ -83,7 +83,7 @@ class SemGrupoFragment : Fragment() {
             Alerter.create(activity!!)
                 .setText("Ainda não é possível criar grupo. Tente mais por favor.")
                 .setIcon(android.R.drawable.stat_sys_warning)
-                .setBackgroundColor(R.color.orange) // Optional - Removes white tint
+                .setBackgroundColorRes(R.color.orange) // Optional - Removes white tint
                 .show()
             //dg.show()
         }

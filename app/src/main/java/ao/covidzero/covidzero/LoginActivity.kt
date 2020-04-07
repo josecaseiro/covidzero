@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         val phone = edt_phone.text.toString()
         val senha = edt_senha.text.toString()
 
-        if(phone.isBlank() || senha.isBlank() || phone.length < 9 || !PhoneNumberUtils.isGlobalPhoneNumber(senha))
+        if(phone.isBlank() || senha.isBlank() || phone.length < 9 || !PhoneNumberUtils.isGlobalPhoneNumber(phone))
         {
             mostrarErro("Preencha todos os campos correctamente por favor")
 
@@ -93,7 +93,7 @@ else
         Alerter.create(this@LoginActivity)
             .setText(s)
             .setIcon(android.R.drawable.stat_sys_warning)
-            .setBackgroundColor(R.color.red) // Optional - Removes white tint
+            .setBackgroundColorRes(R.color.red) // Optional - Removes white tint
             .show()
 
     }

@@ -1,8 +1,14 @@
 package ao.covidzero.covidzero
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ao.covidzero.covidzero.model.Dado
+import ao.covidzero.covidzero.model.Provincia
+import ao.covidzero.covidzero.network.GetDataService
+import ao.covidzero.covidzero.network.RetrofitClientInstance
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
@@ -15,6 +21,12 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded
+import com.tapadoo.alerter.Alerter
+import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.activity_map.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener {
@@ -22,6 +34,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
     private var mapView: MapView? = null
     private var permissionsManager: PermissionsManager? = null
     private var mapboxMap: MapboxMap? = null
+    private var provincias:List<Provincia>? = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +49,70 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync(this)
 
+        loadProvincias()
 
+    }
+
+    fun showLoading(boolean: Boolean=true){
+        if(boolean){
+            Alerter.create(this@MapActivity)
+                .setTitle("Aguarde por favor")
+                .setText("A carregar dados das províncias")
+                .setBackgroundColorRes(R.color.orange)
+                .enableProgress(true)
+                .enableInfiniteDuration(true)
+                .show()
+        } else {
+            Alerter.hide()
+        }
+    }
+
+    fun showTentar(boolean: Boolean=true){
+        if(boolean){
+            Alerter.create(this@MapActivity)
+                .setTitle("Lamentamos")
+                .setText("Não foi possível carregar dados. Clique aqui para tentar de novo")
+                .setBackgroundColorRes(R.color.red)
+                .enableInfiniteDuration(true)
+                .setOnClickListener(
+                    View.OnClickListener {
+                        loadProvincias()
+                    }
+                )
+                .show()
+        } else {
+            Alerter.hide()
+        }
+    }
+
+    fun loadProvincias(){
+        showLoading()
+        val service =
+            RetrofitClientInstance.getRetrofitInstance().create(
+                GetDataService::class.java
+            )
+        val call: Call< List<Provincia> > = service.getprovincias()
+        call.enqueue(object : Callback<List<Provincia> > {
+            override fun onFailure(call: Call<List<Provincia> >, t: Throwable) {
+                t.printStackTrace()
+
+                showLoading(false)
+                showTentar()
+            }
+
+            override fun onResponse(call: Call<List<Provincia> >, response: Response<List<Provincia>>) {
+                provincias = response.body()
+                showLoading(false)
+                showTentar(false)
+
+                Alerter.create(this@MapActivity)
+                    .setTitle("Tudo pronto")
+                    .setText("Dados das províncias carregados.")
+                    .setDuration(4000)
+                    .setBackgroundColorRes(R.color.green)
+                    .show()
+            }
+        })
     }
 
     private fun enableLocationComponent(loadedMapStyle: Style) { // Check if permissions are enabled and if not request

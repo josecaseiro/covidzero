@@ -3,6 +3,7 @@ package ao.covidzero.covidzero
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -91,6 +92,12 @@ class MenuItemFragment : Fragment() {
                     "Denúncias, Emergências"
                 ))
 
+                lista.add(MenuItem(
+                    R.drawable.cancel,
+                    "Sair",
+                    "Clique para terminar sessão"
+                ))
+
                 adapter = MenuItemAdapter(lista, object:  OnListFragmentInteractionListener {
                     override fun onListFragmentInteraction(item: MenuItem?) {
                         if(item?.icone == R.drawable.metodos){
@@ -104,6 +111,14 @@ class MenuItemFragment : Fragment() {
                             }
 
                             dg.show()
+                        }
+
+                        if(item?.icone == R.drawable.cancel){
+
+                            val prefs = activity?.getSharedPreferences("COVID", MODE_PRIVATE)
+                            prefs?.edit()?.putString("telefone", null)?.apply()
+
+                            startActivity(Intent(activity, LoginActivity::class.java))
                         }
 
                         if(item?.icone == R.drawable.exame){
@@ -139,7 +154,7 @@ class MenuItemFragment : Fragment() {
 
                             dg.denuncie_2.setOnClickListener {
                                 val phoneIntent = Intent(Intent.ACTION_CALL)
-                                phoneIntent.setData(Uri.parse("tel:111"))
+                                phoneIntent.setData(Uri.parse("tel:113"))
                                 dg.dismiss()
                                 checkPermissionAndCall(phoneIntent)
 
@@ -149,7 +164,7 @@ class MenuItemFragment : Fragment() {
                                 Alerter.create(activity!!)
                                     .setText("Nenhum profissional disponível de momente. Tente mais tarde.")
                                     .setIcon(android.R.drawable.stat_sys_warning)
-                                    .setBackgroundColor(R.color.red) // Optional - Removes white tint
+                                    .setBackgroundColorRes(R.color.red) // Optional - Removes white tint
                                     .show()
                                 dg.dismiss()
                             }

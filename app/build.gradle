@@ -47,6 +47,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.tapadoo.android:alerter:1.0.6'
+    implementation 'com.tapadoo.android:alerter:5.1.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.0.0'
 }
