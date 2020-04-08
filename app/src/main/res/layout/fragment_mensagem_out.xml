@@ -22,7 +22,7 @@
             android:gravity="left"
             android:text="Valdemiro"
             android:textColor="@android:color/white"
-            android:textSize="10sp" />
+             />
 
         <TextView
             android:id="@+id/mensagem"
@@ -42,7 +42,7 @@
             android:gravity="right"
             android:text="02/04/2020"
             android:textColor="@android:color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="italic" />
 
     </LinearLayout>

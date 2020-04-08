@@ -8,43 +8,6 @@
     android:padding="4dp"
     tools:context=".LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/senha"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_shape"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/bt_cadastrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_pass" />
-
-        <EditText
-            android:id="@+id/edt_senha"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:fontFamily="@font/font_regular"
-            android:hint="Palavra passe"
-            android:inputType="textWebPassword"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="182dp"
@@ -68,110 +31,216 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/font_light"
-        android:text="Entrar com número de telefone"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/phone"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_shape"
-        android:gravity="center"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/senha"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_phone" />
+        <TextView
+            android:id="@+id/tt_entrar"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:fontFamily="@font/font_regular"
+            android:gravity="center"
+            android:text="Entrar"
+            android:textColor="@android:color/black" />
 
-        <EditText
-            android:id="@+id/edt_phone"
+        <TextView
+            android:id="@+id/tt_cadastrar"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:fontFamily="@font/font_regular"
+            android:gravity="center"
+            android:text="Cadastrar" />
+
+        <TextView
+            android:id="@+id/tt_profissionais"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:fontFamily="@font/font_regular"
+            android:gravity="center"
+            android:text="Profissional" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bt_cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:fontFamily="@font/font_light"
-            android:hint="Seu número de telefone"
-            android:inputType="phone"
-            android:textColor="@android:color/black" />
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_shape"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_phone" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/font_light"
+                android:hint="Seu número de telefone"
+                android:inputType="phone"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ordem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_shape"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageViewordem"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:tint="@color/cinza"
+                app:srcCompat="@drawable/ic_person" />
+
+            <EditText
+                android:id="@+id/edt_ordem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/font_light"
+                android:hint="Número da órdem"
+                android:inputType="phone"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nome"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_shape"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageViewnome"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:tint="@color/cinza"
+                app:srcCompat="@drawable/ic_person" />
+
+            <EditText
+                android:id="@+id/edt_nome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/font_light"
+                android:hint="Seu nome"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/senha"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_shape"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_pass" />
+
+            <EditText
+                android:id="@+id/edt_senha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/font_light"
+                android:hint="Palavra passe"
+                android:inputType="textWebPassword"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button
         android:id="@+id/bt_cadastrar"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bt_rounded_shape"
         android:fontFamily="@font/font_light"
-        android:text="Cadastrar"
+        android:text="Entrar"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/checkBox2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/font_light"
-            android:text="Ou entre com a sua conta do facebook"
-            android:textColor="@color/color1"
-            android:textSize="10sp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/fb_icon" />
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginLeft="156dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:fontFamily="@font/font_light"
         android:text="Ligar GPS"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

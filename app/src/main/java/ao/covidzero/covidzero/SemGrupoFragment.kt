@@ -58,26 +58,9 @@ class SemGrupoFragment : Fragment() {
                 val bairro = dg.edt_bairro.text.toString()
                 val descricao = dg.edt_descricao.text.toString()
 
-                if( !
-                    (nome.isBlank()
-                            && actividade.isBlank()
-                            && provincia.isBlank()
-                            && municipio.isBlank()
-                            && bairro.isBlank()
-                            )
-                        ){
-                    val grupo = Grupo(R.drawable.grupos,
-                        nome,
-                        actividade,
-                        provincia,
-                        municipio,
-                        bairro,
-                        descricao
-                        )
 
-                    (activity as GruposActivity).addGrupo(grupo)
-                    dg.dismiss()
-                }
+
+
             }
 
             Alerter.create(activity!!)

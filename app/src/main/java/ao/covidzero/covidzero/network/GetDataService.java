@@ -5,6 +5,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 import ao.covidzero.covidzero.model.Dado;
+import ao.covidzero.covidzero.model.Grupo;
+import ao.covidzero.covidzero.model.Mensagem;
+import ao.covidzero.covidzero.model.Profissional;
 import ao.covidzero.covidzero.model.Provincia;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,10 +26,24 @@ public interface GetDataService {
     @GET("dados/{provincia}")
     Call<Dado> dadosProvincia(@Path("provincia") String provincia);
 
+    @GET("insideGrupo/{id}")
+    Call<List<Mensagem>> grupoSms(@Path("id") int id);
+
+    @GET("grupos/")
+    Call<List<Grupo>> grupos();
+
+    @GET("profissionaisSaude")
+    Call<List<Profissional>> profissionais();
+
     @GET("provincias")
     Call<List<Provincia>> getprovincias();
 
     @FormUrlEncoded
     @POST("usuarios")
-    Call<JSONObject> regisgerUser(@Field("telefone") String telefone,@Field("senha") String senha);
+    Call<JSONObject> regisgerUser(@Field("telefone") String telefone,@Field("senha") String senha, @Field("nome") String nome);
+
+    @FormUrlEncoded
+    @POST("accaoUser/login")
+    Call<JSONObject> makeLogin(@Field("telefone") String telefone,@Field("senha") String senha);
+
 }

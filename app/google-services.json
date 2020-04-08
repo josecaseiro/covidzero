@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "609780163078",
+    "firebase_url": "https://covidzero-db849.firebaseio.com",
+    "project_id": "covidzero-db849",
+    "storage_bucket": "covidzero-db849.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609780163078:android:aeb20e936792ec37731987",
+        "android_client_info": {
+          "package_name": "ao.covidzero.covidzero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609780163078-kjg0m51vl616aoo65oi86ss21ci4o1kj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBok4QgGaSwDvkZAy_cAcDxmffM_8jVQ2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609780163078-kjg0m51vl616aoo65oi86ss21ci4o1kj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showDados() {
         dado?.let {
-            relatorios.linearLayout.confirmado?.setQtd(it.positivos)
+            relatorios.linearLayout.confirmado?.setQtd(it.positivos!!)
             //?.setQtd(it.positivos)
 
             var i =0;
@@ -50,19 +50,19 @@ class MainActivity : AppCompatActivity() {
 
                 when (i) {
                     0 -> {
-                        item.setQtd(it.positivos)
+                        item.setQtd(it.positivos!!)
                     }
                     1 -> {
-                        item.setQtd(it.recuperados)
+                        item.setQtd(it.recuperados!!)
                     }
                     2 -> {
-                        item.setQtd(it.suspeito)
+                        item.setQtd(it.suspeitos!!)
                     }
                     3 -> {
-                        item.setQtd(it.mortes)
+                        item.setQtd(it.mortes!!)
                     }
                     4 -> {
-                        item.setQtd(it.quarentena)
+                        item.setQtd(it.quarentena!!)
                     }
                     else -> {
                     }

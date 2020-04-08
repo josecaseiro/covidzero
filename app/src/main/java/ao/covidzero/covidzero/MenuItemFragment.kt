@@ -161,12 +161,9 @@ class MenuItemFragment : Fragment() {
                             }
 
                             dg.profissional.setOnClickListener {
-                                Alerter.create(activity!!)
-                                    .setText("Nenhum profissional disponível de momente. Tente mais tarde.")
-                                    .setIcon(android.R.drawable.stat_sys_warning)
-                                    .setBackgroundColorRes(R.color.red) // Optional - Removes white tint
-                                    .show()
-                                dg.dismiss()
+                                startActivity(
+                                    Intent(activity, ProfissionaisActivity::class.java)
+                                )
                             }
 
                             dg.show()

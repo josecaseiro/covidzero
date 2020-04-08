@@ -1,5 +1,6 @@
 package ao.covidzero.covidzero
 
+import android.content.SharedPreferences
 import android.view.Gravity
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -22,7 +23,8 @@ import kotlinx.android.synthetic.main.fragment_mensagem.view.*
  */
 class MensagemAdapter(
     private var mValues: MutableList<Mensagem>,
-    private val mListener: OnListFragmentInteractionListener?
+    private val mListener: OnListFragmentInteractionListener?,
+    private val prefs:SharedPreferences
 ) : RecyclerView.Adapter<MensagemAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -43,7 +45,7 @@ class MensagemAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (mValues[position].income) 0 else 1
+        return if (mValues[position].isIncome(prefs)) 0 else 1
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

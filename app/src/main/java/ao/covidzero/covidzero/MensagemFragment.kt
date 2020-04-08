@@ -1,6 +1,7 @@
 package ao.covidzero.covidzero
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,7 +42,7 @@ class MensagemFragment(var mensagens:MutableList<Mensagem>) : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_mensagem_list, container, false)
 
-        mens_adapter = MensagemAdapter(mensagens, listener)
+        mens_adapter = MensagemAdapter(mensagens, listener, activity!!.getSharedPreferences("COVID", MODE_PRIVATE))
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
