@@ -78,7 +78,7 @@ public class ItemRelatorio extends LinearLayout {
 
     }
 
-    public void setQtd(int qtd){
+    public void setQtd( int qtd){
         ( (TextView) findViewById(R.id.qtd) ).setText( String.valueOf(qtd) );
     }
 

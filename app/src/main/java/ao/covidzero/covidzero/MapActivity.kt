@@ -318,6 +318,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
                 .tilt(30.0) // Set the camera tilt
                 .build(); // Creates a CameraPosition from the builder
 
+
             mapboxMap?.animateCamera(
                 CameraUpdateFactory
                     .newCameraPosition(position), 7000

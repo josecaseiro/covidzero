@@ -3,15 +3,22 @@ package ao.covidzero.covidzero
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import ao.covidzero.covidzero.model.Dado
 import ao.covidzero.covidzero.network.GetDataService
+import ao.covidzero.covidzero.network.HttpClient
 import ao.covidzero.covidzero.network.RetrofitClientInstance
 import ao.covidzero.covidzero.widget.ItemRelatorio
+import com.google.gson.Gson
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.tapadoo.alerter.Alerter
+import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,6 +82,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDados() {
+
+        HttpClient.get("dados", null, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                response?.let {
+                    val gson = Gson()
+                    val dad = gson.fromJson<Dado>(it.toString(), Dado::class.java)
+                    dado = dad
+                    showDados()
+                    Alerter.hide()
+                }
+
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
+                Alerter.hide()
+                Alerter.create(this@MainActivity)
+                    .setTitle("Lamentamos")
+                    .setText("Não foi possível carregar os dados")
+                    .enableInfiniteDuration(true)
+                    .addButton("Tentar de novo", R.style.AlertButton, View.OnClickListener {
+                        loadDados()
+                    })
+                    .setIcon(android.R.drawable.stat_sys_warning)
+                    .setBackgroundColorRes(R.color.red) // Optional - Removes white tint
+                    .show()
+                super.onFailure(statusCode, headers, responseString, throwable)
+            }
+        })
+
+        return
+
         val service =
             RetrofitClientInstance.getRetrofitInstance().create(
                 GetDataService::class.java

@@ -42,8 +42,7 @@ public interface GetDataService {
     @POST("usuarios")
     Call<JSONObject> regisgerUser(@Field("telefone") String telefone,@Field("senha") String senha, @Field("nome") String nome);
 
-    @FormUrlEncoded
     @POST("accaoUser/login")
-    Call<JSONObject> makeLogin(@Field("telefone") String telefone,@Field("senha") String senha);
+    Call<JSONObject> makeLogin(@Body LoginBody body);
 
 }

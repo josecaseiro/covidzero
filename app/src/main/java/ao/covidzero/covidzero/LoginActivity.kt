@@ -14,8 +14,13 @@ import android.widget.TextView
 import android.widget.Toast
 import ao.covidzero.covidzero.model.Dado
 import ao.covidzero.covidzero.network.GetDataService
+import ao.covidzero.covidzero.network.HttpClient
+import ao.covidzero.covidzero.network.LoginBody
 import ao.covidzero.covidzero.network.RetrofitClientInstance
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import com.tapadoo.alerter.Alerter
+import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -49,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         bt_cadastrar.setOnClickListener {
+
             when (tela) {
                 0 -> {
                     makeLogin()
@@ -93,6 +99,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun makeCadastro() {
+        Alerter.create(this@LoginActivity)
+            .setTitle("A criar conta")
+            .setText("Aguarde por favor")
+            .setBackgroundColorRes(R.color.orange)
+            .enableProgress(true)
+            .enableInfiniteDuration(true)
+            .show()
+
         val phone = edt_phone.text.toString()
         val nome = edt_nome.text.toString()
         val senha = edt_senha.text.toString()
@@ -109,36 +123,40 @@ class LoginActivity : AppCompatActivity() {
 
             }
             else {
-                val service =
-                    RetrofitClientInstance.getRetrofitInstance().create(
-                        GetDataService::class.java
-                    )
-                val call: Call<JSONObject> = service.regisgerUser(phone, senha, nome)
-                call.enqueue(object : Callback<JSONObject> {
-                    override fun onFailure(call: Call<JSONObject>, t: Throwable) {
-                        mostrarErro("Não foi possível cadastrar de momento. Tente de novo por favor.")
-                        t.printStackTrace()
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Something went wrong...Please try later!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+
+                val params = RequestParams()
+                params.put("telefone", phone)
+                params.put("senha", senha)
+                params.put("nome", nome)
+
+                HttpClient.post("usuarios", params, object : JsonHttpResponseHandler() {
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        response: JSONObject?
+                    ) {
+                        super.onSuccess(statusCode, headers, response)
+
+                        Alerter.create(this@LoginActivity)
+                            .setTitle("Conta criada com sucesso")
+                            .setText("Inicie sessão por favor")
+                            .setBackgroundColorRes(R.color.green)
+                            .setDuration(10000)
+                            .show()
+
+                        tt_entrar.callOnClick()
+
                     }
 
-                    override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
-                        val prefs = getSharedPreferences("COVID", Context.MODE_PRIVATE)
-                        val editor = prefs.edit()
-
-                        editor.putString("telefone", phone)
-                        editor.putString("senha", senha)
-
-                        editor.apply()
-
-                        Log.d("CADASTRAR", response.body().toString())
-
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        finish()
-
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        responseString: String?,
+                        throwable: Throwable?
+                    ) {
+                        Alerter.hide()
+                        mostrarErro("Não foi possível criar a sua conta. Tente de novo por favor.")
+                        super.onFailure(statusCode, headers, responseString, throwable)
                     }
                 })
 
@@ -147,6 +165,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun makeLogin() {
+
+
         val phone = edt_phone.text.toString()
         val senha = edt_senha.text.toString()
 
@@ -162,37 +182,61 @@ class LoginActivity : AppCompatActivity() {
 
         }
         else {
-            val service =
-                RetrofitClientInstance.getRetrofitInstance().create(
-                    GetDataService::class.java
-                )
-            val call: Call<JSONObject> = service.makeLogin(phone, senha)
-            call.enqueue(object : Callback<JSONObject> {
-                override fun onFailure(call: Call<JSONObject>, t: Throwable) {
-                    mostrarErro("Telefone ou senha não correspondem. Tente de novo por favor.")
-                    t.printStackTrace()
+            Alerter.create(this@LoginActivity)
+                .setTitle("A iniciar sessão")
+                .setText("Aguarde por favor")
+                .setBackgroundColorRes(R.color.orange)
+                .enableProgress(true)
+                .enableInfiniteDuration(true)
+                .show()
 
+            val params = RequestParams()
+            params.put("telefone", phone)
+            params.put("senha", senha)
 
-                }
+            HttpClient.post("accaoUser/login", params, object : JsonHttpResponseHandler() {
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    response: JSONObject?
+                ) {
+                    super.onSuccess(statusCode, headers, response)
 
-                override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
                     val prefs = getSharedPreferences("COVID", Context.MODE_PRIVATE)
                     val editor = prefs.edit()
 
+                    response?.let {
 
-                    editor.putString("telefone", phone)
-                    editor.putString("senha", senha)
-                    editor.putString("nome", "Jose Manuel")
-                    editor.putString("id","10")
-                    editor.apply()
+                        if( it.has( "idUser" ) ) {
+                            editor.putString("telefone", phone)
+                            editor.putString("senha", senha)
+                            editor.putString("id", it.getString("idUser"))
+                            editor.apply()
 
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        } else mostrarErro("Telefone ou senha não correspondem. Tente de novo por favor.")
 
-                    Log.d("LOGIN", response.body().toString())
+                    }
+
+
+                    Log.d("LOGIN", response.toString())
+
+                }
+
+                override fun onFailure(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    responseString: String?,
+                    throwable: Throwable?
+                ) {
+                    Alerter.hide()
+                    mostrarErro("Telefone ou senha não correspondem. Tente de novo por favor.")
+                    super.onFailure(statusCode, headers, responseString, throwable)
                 }
             })
 
+            return
         }
 
     }
@@ -251,6 +295,7 @@ class LoginActivity : AppCompatActivity() {
     private fun mostrarErro(s: String) {
 
         Alerter.create(this@LoginActivity)
+            .setTitle("Lamentamos")
             .setText(s)
             .setIcon(android.R.drawable.stat_sys_warning)
             .setBackgroundColorRes(R.color.red) // Optional - Removes white tint

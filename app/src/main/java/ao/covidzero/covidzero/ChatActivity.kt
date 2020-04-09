@@ -1,15 +1,22 @@
 package ao.covidzero.covidzero
 
+import android.content.Context
 import android.net.DnsResolver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import ao.covidzero.covidzero.model.Grupo
 import ao.covidzero.covidzero.model.Mensagem
 import ao.covidzero.covidzero.network.GetDataService
+import ao.covidzero.covidzero.network.HttpClient
 import ao.covidzero.covidzero.network.RetrofitClientInstance
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import com.tapadoo.alerter.Alerter
+import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_chat.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,12 +43,52 @@ class ChatActivity : AppCompatActivity() {
         bt_enviar.setOnClickListener {
             val msg = editText.text.toString()
             if(msg.isNotBlank()){
-                val nova =  Mensagem("Utilizador", msg, Date().toString() )
+
+                Alerter.create(this@ChatActivity)
+                    .setTitle("Aguarde")
+                    .setText("A enviar mensagem")
+                    .setBackgroundColorRes(R.color.orange)
+                    .enableProgress(true)
+                    .enableInfiniteDuration(true)
+                    .show()
+
+                val id = getSharedPreferences("COVID", Context.MODE_PRIVATE).getString("id","")
+                val req = RequestParams()
+                req.put("grupo", grupo?.id)
+                req.put("userId", id)
+                req.put("sms", msg)
+
+                HttpClient.post("insideGrupo/${grupo?.id}", req, object : JsonHttpResponseHandler(){
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        response: JSONObject?
+                    ) {
+                        Alerter.hide()
+                        editText.text.clear()
+                        Log.d("SMS", response.toString())
+                        loadMensagens()
+                        super.onSuccess(statusCode, headers, response)
+                    }
+
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        responseString: String?,
+                        throwable: Throwable?
+                    ) {
+                        Alerter.create(this@ChatActivity)
+                            .setTitle("Lamentamos")
+                            .setText("Não foi possível enviar mensagem. Tente de novo por favor.")
+                            .setBackgroundColorRes(R.color.green)
+                            .show()
+                        Alerter.hide()
+
+                        super.onFailure(statusCode, headers, responseString, throwable)
+                    }
+                })
 
 
-
-                //fragment?.addMensagem(nova)
-                editText.text.clear()
             }
         }
 
