@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ao.covidzero.covidzero.ExameActivity
 
 import ao.covidzero.covidzero.R
+import kotlinx.android.synthetic.main.fragment_perguntas_oque_sente.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +38,31 @@ class PerguntasOqueSenteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perguntas_oque_sente, container, false)
+        val v = inflater.inflate(R.layout.fragment_perguntas_oque_sente, container, false)
+
+
+
+        v.bt_analisar.setOnClickListener {
+            var qtdMarked = 0
+
+            if(v.rad_sim.isChecked) qtdMarked++
+            if(v.rad_sim2.isChecked) qtdMarked++
+            if(v.rad_sim3.isChecked) qtdMarked++
+
+            var covidSintomas = 0
+
+            if(v.tosse_seca.isChecked) covidSintomas++
+            if(v.respirar.isChecked) covidSintomas++
+
+            if(qtdMarked > 0 || covidSintomas == 2)
+                (activity as ExameActivity).showMal()
+            else
+            (activity as ExameActivity).showBem()
+        }
+
+
+
+        return v
     }
 
     companion object {

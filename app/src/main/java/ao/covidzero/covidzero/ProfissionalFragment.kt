@@ -1,6 +1,7 @@
 package ao.covidzero.covidzero
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -58,7 +59,17 @@ class ProfissionalFragment(var profissionais:List<Profissional>) : Fragment() {
         if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            //throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+
+            listener = object : OnListFragmentInteractionListener {
+                override fun onListFragmentInteraction(item: Profissional?) {
+                    item?.let {
+                        val intent = Intent(activity, ChatActivity::class.java)
+                        intent.putExtra("profissional", it)
+                        startActivity(intent)
+                    }
+                }
+            }
+
         }
     }
 

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import ao.covidzero.covidzero.model.Grupo
 import ao.covidzero.covidzero.model.Mensagem
+import ao.covidzero.covidzero.model.Profissional
 import ao.covidzero.covidzero.network.GetDataService
 import ao.covidzero.covidzero.network.HttpClient
 import ao.covidzero.covidzero.network.RetrofitClientInstance
@@ -26,6 +27,7 @@ class ChatActivity : AppCompatActivity() {
 
     private var fragment: MensagemFragment? = null
     var grupo: Grupo? = null
+    var profissional:Profissional? = null
     var mensagens = listOf<Mensagem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +36,13 @@ class ChatActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        grupo = intent.getSerializableExtra("grupo") as Grupo
+        grupo = intent.getSerializableExtra("grupo") as Grupo?
+        profissional = intent.getSerializableExtra("profissional") as Profissional?
 
+        if(grupo != null)
         nome.text = "${grupo?.nome} - ${grupo?.descricao}"
+        else if(profissional!=null)
+        nome.text = "${profissional?.nome} - ${profissional?.profissao}"
 
         loadMensagens()
 
@@ -109,9 +115,15 @@ class ChatActivity : AppCompatActivity() {
                 GetDataService::class.java
             )
 
-        val call = service.grupoSms(grupo?.id!!)
+        var call:Call<List<Mensagem>>? = null
 
-        call.enqueue(object : Callback<List<Mensagem>> {
+        if(grupo!=null)
+         call = service.grupoSms(grupo?.id!!)
+        else if (profissional !=null) {
+            call = service.grupoSms(profissional?.id!!)
+        }
+
+        call?.enqueue(object : Callback<List<Mensagem>> {
             override fun onFailure(call: Call<List<Mensagem>>, t: Throwable) {
                 Alerter.create(this@ChatActivity)
                     .setTitle("Lamentamos")

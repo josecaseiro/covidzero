@@ -2,7 +2,8 @@ package ao.covidzero.covidzero
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ao.covidzero.covidzero.exame.ComoEstasFragment
+import androidx.fragment.app.Fragment
+import ao.covidzero.covidzero.exame.*
 
 class ExameActivity : AppCompatActivity() {
 
@@ -12,10 +13,32 @@ class ExameActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val fragment = ComoEstasFragment()
+        show(fragment)
+    }
+
+    fun show(frag:Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ComoEstasFragment()
-        fragmentTransaction.replace(R.id.frag_frame, fragment)
+        fragmentTransaction.replace(R.id.frag_frame, frag)
         fragmentTransaction.commit()
+    }
+
+    fun mostrarPerguntasContacto() {
+        val fragment = PerguntasContactoFragment()
+        show(fragment)
+    }
+
+    fun mostrarPerguntasOqueSente() {
+        val fragment = PerguntasOqueSenteFragment()
+        show(fragment)
+    }
+
+    fun showBem() {
+        show(BemFragment())
+    }
+
+    fun showMal() {
+        show(MalFragment())
     }
 }

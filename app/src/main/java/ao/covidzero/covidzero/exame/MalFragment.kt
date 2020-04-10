@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ao.covidzero.covidzero.ExameActivity
 
 import ao.covidzero.covidzero.R
+import kotlinx.android.synthetic.main.fragment_bem.view.*
+import kotlinx.android.synthetic.main.fragment_como_estas.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +39,13 @@ class MalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mal, container, false)
+        val v = inflater.inflate(R.layout.fragment_mal, container, false)
+
+        v.bt_medir.setOnClickListener {
+            (activity as ExameActivity).show(MedirFragment())
+        }
+
+        return v
     }
 
     companion object {

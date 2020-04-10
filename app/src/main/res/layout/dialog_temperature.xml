@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="330dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
 
@@ -103,11 +103,11 @@
                 android:text="Coloque seu dedo aqui" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:src="@drawable/ic_finger_off"
+                android:id="@+id/bt_finger"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/finger_off" />
+                android:layout_gravity="center" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="150dp"

@@ -106,6 +106,10 @@ class GruposActivity : AppCompatActivity() {
         }
     }
 
+    fun addGrupo(){
+        floatingActionButton.callOnClick()
+    }
+
     public fun addGrupo(grupo:Grupo){
         loadGrupos()
     }

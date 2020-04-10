@@ -42,33 +42,7 @@ class SemGrupoFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_sem_grupo, container, false)
 
         v.bt_criar_grupo.setOnClickListener {
-            val dg = android.app.Dialog( activity!! )
-            dg.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
-
-            dg.setContentView(R.layout.dialog_nova_comunidade)
-            dg.bt_cancelar.setOnClickListener {
-                dg.dismiss()
-            }
-
-            dg.bt_criar.setOnClickListener {
-                val nome = dg.edt_nome.text.toString()
-                val actividade = dg.edt_actividade.text.toString()
-                val provincia = dg.edt_provincia.text.toString()
-                val municipio = dg.edt_municipio.text.toString()
-                val bairro = dg.edt_bairro.text.toString()
-                val descricao = dg.edt_descricao.text.toString()
-
-
-
-
-            }
-
-            Alerter.create(activity!!)
-                .setText("Ainda não é possível criar grupo. Tente mais por favor.")
-                .setIcon(android.R.drawable.stat_sys_warning)
-                .setBackgroundColorRes(R.color.orange) // Optional - Removes white tint
-                .show()
-            //dg.show()
+            (activity as GruposActivity).addGrupo()
         }
 
         return v

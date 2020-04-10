@@ -22,7 +22,7 @@
             android:id="@+id/imageView4"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/lol"
+            android:src="@drawable/sad"
             app:srcCompat="@drawable/sad" />
 
         <TextView
@@ -42,7 +42,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/bt_bem"
+        android:id="@+id/bt_medir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
