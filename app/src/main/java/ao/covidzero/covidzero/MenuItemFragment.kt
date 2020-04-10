@@ -122,7 +122,10 @@ class MenuItemFragment : Fragment() {
                         }
 
                         if(item?.icone == R.drawable.exame){
+
+                            startActivity(Intent(activity, ExameActivity::class.java))
                             //Mostrar os métodos de prevenção
+                            return
                             val dg = android.app.Dialog(context)
                             dg.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
 

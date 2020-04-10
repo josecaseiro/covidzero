@@ -20,7 +20,7 @@
                 android:id="@+id/icone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:srcCompat="@drawable/grupos" />
+                app:srcCompat="@drawable/g" />
 
             <TextView
                 android:id="@+id/nome"
