@@ -117,7 +117,7 @@
                 android:background="@drawable/circle">
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/graus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_regular"
@@ -161,7 +161,7 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="36º"
+                    android:text="35º"
                     android:textColor="@color/color4"
                     android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -201,28 +201,27 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
-                    android:layout_width="198dp"
+                    android:layout_width="200dp"
                     android:layout_height="8dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/barra_temperatura"
-                    android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView18">
 
                     <LinearLayout
-                        android:layout_width="4dp"
+                        android:id="@+id/marker"
+                        android:layout_width="2dp"
                         android:layout_height="8dp"
-                        android:layout_gravity="center"
                         android:background="@android:color/white"
-                        android:gravity="center|clip_vertical"
+                        android:gravity="clip_vertical"
                         android:orientation="horizontal"></LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/bt_outra_vez"
                 android:layout_width="120dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center"
@@ -239,7 +238,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/warning" />
+                android:src="@drawable/warning" />
 
             <TextView
                 android:id="@+id/textView25"

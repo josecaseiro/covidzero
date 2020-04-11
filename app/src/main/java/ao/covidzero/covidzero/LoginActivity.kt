@@ -242,10 +242,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun makeLoginProfissional() {
-        val phone = edt_phone.text.toString()
+        val ordem = edt_ordem.text.toString()
         val senha = edt_senha.text.toString()
 
-        if(phone.isBlank() || senha.isBlank() || phone.length < 9 || !PhoneNumberUtils.isGlobalPhoneNumber(phone))
+        if(ordem.isBlank() || senha.isBlank() )
         {
             mostrarErro("Preencha todos os campos correctamente por favor")
 
@@ -257,36 +257,60 @@ class LoginActivity : AppCompatActivity() {
 
             }
             else {
-                val service =
-                    RetrofitClientInstance.getRetrofitInstance().create(
-                        GetDataService::class.java
-                    )
-                val call: Call<JSONObject> = service.regisgerUser(phone, senha, "")
-                call.enqueue(object : Callback<JSONObject> {
-                    override fun onFailure(call: Call<JSONObject>, t: Throwable) {
-                        mostrarErro("Não foi possível cadastrar de momento. Tente de novo por favor.")
-                        t.printStackTrace()
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Something went wrong...Please try later!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
 
-                    override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
+                Alerter.create(this@LoginActivity)
+                    .setTitle("A iniciar sessão")
+                    .setText("Aguarde por favor")
+                    .setBackgroundColorRes(R.color.orange)
+                    .enableProgress(true)
+                    .enableInfiniteDuration(true)
+                    .show()
+
+                val params = RequestParams()
+                params.put("numOrdem", ordem)
+                params.put("senha", senha)
+
+                HttpClient.post("accaoUser/loginPs", params, object : JsonHttpResponseHandler() {
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        response: JSONObject?
+                    ) {
+                        super.onSuccess(statusCode, headers, response)
+
                         val prefs = getSharedPreferences("COVID", Context.MODE_PRIVATE)
                         val editor = prefs.edit()
 
-                        editor.putString("telefone", phone)
-                        editor.putString("senha", senha)
+                        response?.let {
 
-                        editor.apply()
+                            if( it.has( "idUser" ) ) {
+                                editor.putString("senha", senha)
+                                editor.putString("id", it.getString("idUser"))
+                                editor.apply()
 
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        finish()
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                finish()
+                            } else mostrarErro("Número órdem ou senha não correspondem. Tente de novo por favor.")
+
+                        }
+
+
+                        Log.d("LOGIN", response.toString())
 
                     }
+
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        responseString: String?,
+                        throwable: Throwable?
+                    ) {
+                        Alerter.hide()
+                        mostrarErro("Número órdem ou senha não correspondem. Tente de novo por favor.")
+                        super.onFailure(statusCode, headers, responseString, throwable)
+                    }
                 })
+
 
             }
 
