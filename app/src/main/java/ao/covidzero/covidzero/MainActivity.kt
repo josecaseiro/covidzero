@@ -1,10 +1,15 @@
 package ao.covidzero.covidzero
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import ao.covidzero.covidzero.model.Dado
@@ -22,15 +27,20 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
     var dado:Dado? = null
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        messegeCovid()
 
         supportActionBar?.hide()
 
@@ -44,6 +54,30 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, MapActivity::class.java))
         }
 
+    }
+
+    private fun messegeCovid() {
+
+        //Alarme 15min de cada hora
+        Gestor.setContext(applicationContext)
+        sendBroadcast(Intent("android.intent.action.covidzero.covidzero.InicarAlarme"))
+
+        val calendar: Calendar = Calendar.getInstance()
+
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.get(Calendar.YEAR)
+        calendar.get(Calendar.MONTH)
+        calendar.get(Calendar.DAY_OF_MONTH)
+        calendar.set(Calendar.MINUTE, 15)
+        calendar.set(Calendar.SECOND, 0)
+
+        Gestor.alarme = calendar.timeInMillis
+        val alarme: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarme.setRepeating(
+            AlarmManager.RTC, calendar.timeInMillis, 1000 * 60 * 15
+            , PendingIntent.getActivity(applicationContext, 45, Intent("android.intent.action.covidzero.covidzero.ActivityAlarme")
+                , PendingIntent.FLAG_UPDATE_CURRENT)
+        )
     }
 
     private fun showDados() {
@@ -146,7 +180,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun generateMenu() {
         val fragmentManager = supportFragmentManager

@@ -10,6 +10,25 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Swipe intro strings-->
+    <string name="avancar">AVANÇAR</string>
+    <string name="pular">PULAR</string>
+    <string name="iniciar">FINALIZAR</string>
+    <string name="lv">De lavar as maões com água e sabão.</string>
+    <string name="slide_1_titulo">Lavar as maões frequentemente com água e sabão.</string>
+    <string name="slide_2_titulo">Manter 3 metro de distancia de pessoas estranhas.</string>
+    <string name="slide_3_titulo">Usar Álcool em gel depois de tocar algum lugar.</string>
+
+    <string name="new_message_notification_title_template">Alerta: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message_notification_placeholder_text_template">Olá já se passaram do minuto 15 está na hora de lavar
+        as suas maoes com agua e sabao.
+        app %1$s
+    </string>
+
+    <string name="action_share">Share</string>
+    <string name="action_reply">Reply</string>
+
 </resources>
