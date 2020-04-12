@@ -119,6 +119,7 @@ class MenuItemFragment : Fragment() {
                             prefs?.edit()?.putString("telefone", null)?.apply()
 
                             startActivity(Intent(activity, LoginActivity::class.java))
+                            activity?.finish()
                         }
 
                         if(item?.icone == R.drawable.exame){

@@ -45,6 +45,7 @@ import kotlinx.android.synthetic.main.activity_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.Serializable
 import java.lang.Exception
 
 
@@ -351,6 +352,44 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
 
         if(location != null)
             animateCamara(location)
+
+        getDataFromNearestProv(location)
+    }
+
+    private fun getDataFromNearestProv(location: Location?) {
+        if(location != null && provincias != null){
+            val map = mutableMapOf<Serializable, Double>()
+
+            for (prov in provincias!!){
+                map.put(prov, getDistanceFromLatLonInKm(prov.getLat(), prov.getLong(), location))
+            }
+
+            val sorted = map.toList().sortedBy { (_, value) -> value}.toMap()
+
+            Log.d("nearst ", (sorted.keys.first() as Provincia).nome)
+            loadProvinciaData(( sorted.keys.first() as Provincia).nome )
+
+
+        }
+    }
+
+
+
+    fun getDistanceFromLatLonInKm(lat:Double, long:Double, location: Location): Double {
+        val R = 6371; // Radius of the earth in km
+        val dLat = deg2rad(lat-location.latitude);  // deg2rad below
+        val dLon = deg2rad(long-location.longitude);
+        val a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(deg2rad(location.latitude)) * Math.cos(deg2rad(lat)) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2);
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        val d = R * c; // Distance in km
+        return d
+    }
+
+    fun deg2rad(deg:Double):Double {
+        return deg * (Math.PI/180)
     }
 
     private fun animateCamara(location: Location) {
@@ -374,7 +413,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
     fun initLocationEngine(){
         val locationEngine = LocationEngineProvider.getBestLocationEngine(this);
 
-        val request = LocationEngineRequest.Builder(1000)
+        val request = LocationEngineRequest.Builder(30*60000)
         .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
         .setMaxWaitTime(10000).build();
 

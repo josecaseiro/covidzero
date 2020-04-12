@@ -1,9 +1,11 @@
 package ao.covidzero.covidzero
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import ao.covidzero.covidzero.model.Dado
 import ao.covidzero.covidzero.network.GetDataService
 import ao.covidzero.covidzero.network.HttpClient
@@ -38,6 +41,10 @@ class LoginActivity : AppCompatActivity() {
 
         actionBar?.hide()
         supportActionBar?.hide()
+
+        checkBox2.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) statusCheck()
+        }
 
         tt = mutableListOf(tt_entrar,tt_cadastrar, tt_profissionais)
 
@@ -239,6 +246,24 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+    }
+
+    public fun statusCheck() {
+    val manager =  getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        buildAlertMessageNoGps();
+    }
+}
+
+    fun buildAlertMessageNoGps(){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Seu GPS parece estar desactivado. Active-o para obter os dados relactivos ao COVID19 na sua região.")
+        builder.setPositiveButton("Activar", DialogInterface.OnClickListener { dialog, which ->
+            startActivity( Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        })
+        builder.setNegativeButton("Activar mais tarde", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+        builder.create().show()
     }
 
     private fun makeLoginProfissional() {
