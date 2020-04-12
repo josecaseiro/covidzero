@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +15,10 @@ import ao.covidzero.covidzero.model.Dado
 import ao.covidzero.covidzero.model.Provincia
 import ao.covidzero.covidzero.network.GetDataService
 import ao.covidzero.covidzero.network.RetrofitClientInstance
+import com.mapbox.android.core.location.LocationEngineCallback
+import com.mapbox.android.core.location.LocationEngineProvider
+import com.mapbox.android.core.location.LocationEngineRequest
+import com.mapbox.android.core.location.LocationEngineResult
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.geojson.FeatureCollection
@@ -40,9 +45,11 @@ import kotlinx.android.synthetic.main.activity_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener,
+    LocationEngineCallback<LocationEngineResult> {
 
     private  var style: Style? = null
     private var mapView: MapView? = null
@@ -50,6 +57,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
     private var mapboxMap: MapboxMap? = null
     private var provincias: List<Provincia>? = null
     val ICON_ID = "ICON_ID";
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,6 +159,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
             locationComponent.cameraMode = CameraMode.TRACKING
             // Set the component's render mode
             locationComponent.renderMode = RenderMode.COMPASS
+
+            initLocationEngine()
+
         } else {
             permissionsManager = PermissionsManager(this)
             permissionsManager?.requestLocationPermissions(this)
@@ -230,9 +242,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
             , object : OnStyleLoaded {
                 override fun onStyleLoaded(sty: Style) {
                     // Map is set up and the style has loaded. Now you can add data or make other map adjustments.
-                    enableLocationComponent(sty)
                     style = sty
                     loadMarkers(style!!)
+                    enableLocationComponent(sty)
+
                 }
             })
     }
@@ -312,6 +325,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
                 )
             }
 
+            /*
             val position = CameraPosition.Builder()
                 .target(LatLng(it.first().getLat(), it.first().getLong())) // Sets the new camera position
                 .zoom(7.0) // Sets the zoom
@@ -323,11 +337,49 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
                 CameraUpdateFactory
                     .newCameraPosition(position), 7000
             );
+
+             */
         }
 
 
 
 
+    }
+
+    override fun onSuccess(result: LocationEngineResult?) {
+        val  location = result?.getLastLocation();
+
+        if(location != null)
+            animateCamara(location)
+    }
+
+    private fun animateCamara(location: Location) {
+        val position = CameraPosition.Builder()
+            .target(LatLng(location.latitude, location.longitude)) // Sets the new camera position
+            .zoom(9.0) // Sets the zoom
+            .tilt(30.0) // Set the camera tilt
+            .build(); // Creates a CameraPosition from the builder
+
+
+        mapboxMap?.animateCamera(
+            CameraUpdateFactory
+                .newCameraPosition(position), 4000
+        );
+    }
+
+    override fun onFailure(exception: Exception) {
+
+    }
+
+    fun initLocationEngine(){
+        val locationEngine = LocationEngineProvider.getBestLocationEngine(this);
+
+        val request = LocationEngineRequest.Builder(1000)
+        .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
+        .setMaxWaitTime(10000).build();
+
+        locationEngine.requestLocationUpdates(request, this, getMainLooper());
+        locationEngine.getLastLocation(this);
     }
 
 
