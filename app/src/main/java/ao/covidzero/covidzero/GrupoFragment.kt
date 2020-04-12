@@ -20,8 +20,13 @@ import ao.covidzero.covidzero.model.Grupo
  * Activities containing this fragment MUST implement the
  * [GrupoFragment.OnListFragmentInteractionListener] interface.
  */
-class GrupoFragment(val grupos:List<Grupo>) : Fragment() {
+class GrupoFragment() : Fragment() {
 
+    var grupos = listOf<Grupo>()
+
+    constructor( grup:List<Grupo>):this(){
+        this.grupos = grup
+    }
     // TODO: Customize parameters
     private var columnCount = 1
 

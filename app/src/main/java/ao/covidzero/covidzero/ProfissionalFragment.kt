@@ -20,7 +20,13 @@ import ao.covidzero.covidzero.model.Profissional
  * Activities containing this fragment MUST implement the
  * [ProfissionalFragment.OnListFragmentInteractionListener] interface.
  */
-class ProfissionalFragment(var profissionais:List<Profissional>) : Fragment() {
+class ProfissionalFragment() : Fragment() {
+
+    var profissionais = listOf<Profissional>()
+
+    constructor( profissionais:List<Profissional>):this(){
+        this.profissionais = profissionais
+    }
 
     // TODO: Customize parameters
     private var columnCount = 1

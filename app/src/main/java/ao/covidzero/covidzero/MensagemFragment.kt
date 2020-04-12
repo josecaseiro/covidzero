@@ -20,7 +20,13 @@ import ao.covidzero.covidzero.model.Mensagem
  * Activities containing this fragment MUST implement the
  * [MensagemFragment.OnListFragmentInteractionListener] interface.
  */
-class MensagemFragment(var mensagens:MutableList<Mensagem>) : Fragment() {
+class MensagemFragment() : Fragment() {
+    var mensagens = mutableListOf<Mensagem>()
+
+    constructor(
+        mens:MutableList<Mensagem>) : this(){
+        this.mensagens = mens
+    }
 
     private lateinit var mens_adapter: MensagemAdapter
     // TODO: Customize parameters
