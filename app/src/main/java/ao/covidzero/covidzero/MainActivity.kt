@@ -1,10 +1,15 @@
 package ao.covidzero.covidzero
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import ao.covidzero.covidzero.model.Dado
@@ -22,15 +27,20 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
     var dado:Dado? = null
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        messegeCovid()
 
         supportActionBar?.hide()
 
@@ -43,6 +53,35 @@ class MainActivity : AppCompatActivity() {
         linearLayout.setOnClickListener {
             startActivity(Intent(this@MainActivity, MapActivity::class.java))
         }
+
+    }
+
+    private fun messegeCovid() {
+
+        //Alarme 15min de cada hora
+
+         sendBroadcast(Intent("android.intent.action.covidzero.covidzero.InicarAlarme"))
+
+        val calendar= Calendar.getInstance()
+
+        calendar.set(
+            calendar.get(Calendar.YEAR)
+            , calendar.get(Calendar.MONTH)
+            , calendar.get(Calendar.DAY_OF_MONTH)
+            , calendar.get(Calendar.HOUR_OF_DAY),0)
+
+        val alarme: AlarmManager =  getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarme.setRepeating(
+            AlarmManager.RTC, calendar.timeInMillis, 1000 * 60 * 15
+            , PendingIntent.getActivity(
+                this, 45, Intent("android.intent.action.covidzero.covidzero.InicarNotificao")
+                , PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        )
+
+        Toast.makeText(applicationContext," alarme definido ${calendar.get(Calendar.HOUR_OF_DAY)} :00",Toast.LENGTH_SHORT).show()
+
+
 
     }
 
@@ -146,7 +185,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun generateMenu() {
         val fragmentManager = supportFragmentManager

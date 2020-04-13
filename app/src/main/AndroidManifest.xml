@@ -6,8 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
     <application
-        android:name="androidx.multidex.MultiDexApplication"
+        android:name=".intro.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_covid"
         android:label="@string/app_name"
@@ -15,18 +18,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ExameActivity"></activity>
-        <activity android:name=".ProfissionaisActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".GruposActivity" />
-        <activity android:name=".Tela1Activity">
+        <activity android:name=".intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".InicarAlarme"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.covidzero.covidzero.InicarAlarme"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".InicarNotificao"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.covidzero.covidzero.app"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name=".ExameActivity" />
+        <activity android:name=".ProfissionaisActivity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".GruposActivity" />
+        <activity android:name=".Tela1Activity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
     </application>

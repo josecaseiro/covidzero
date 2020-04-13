@@ -52,6 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="20dp"
@@ -89,8 +90,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relatorios"
-        >
+        android:id="@+id/relatorios">
 
         <LinearLayout
             android:gravity="center_horizontal"
@@ -149,7 +149,6 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -160,12 +159,15 @@
         android:background="@android:color/darker_gray"
         android:orientation="vertical" />
 
+
     <FrameLayout
         android:id="@+id/frag_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </FrameLayout>
+
+
 
 
 </LinearLayout>
