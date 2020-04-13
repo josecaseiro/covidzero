@@ -26,15 +26,6 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".InicarNotificao"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.covidzero.covidzero.app"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".InicarAlarme"
             android:enabled="true"
             android:exported="true">
@@ -45,7 +36,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-
+        <receiver
+            android:name=".InicarNotificao"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.covidzero.covidzero.app"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
         <activity android:name=".ExameActivity" />
         <activity android:name=".ProfissionaisActivity" />
         <activity android:name=".MapActivity" />
