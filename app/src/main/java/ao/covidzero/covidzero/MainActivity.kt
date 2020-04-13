@@ -59,25 +59,30 @@ class MainActivity : AppCompatActivity() {
     private fun messegeCovid() {
 
         //Alarme 15min de cada hora
-        Gestor.setContext(applicationContext)
-        sendBroadcast(Intent("android.intent.action.covidzero.covidzero.InicarAlarme"))
 
-        val calendar: Calendar = Calendar.getInstance()
+         sendBroadcast(Intent("android.intent.action.covidzero.covidzero.InicarAlarme"))
 
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.get(Calendar.YEAR)
-        calendar.get(Calendar.MONTH)
-        calendar.get(Calendar.DAY_OF_MONTH)
-        calendar.set(Calendar.MINUTE, 15)
-        calendar.set(Calendar.SECOND, 0)
+        val calendar= Calendar.getInstance()
 
-        Gestor.alarme = calendar.timeInMillis
-        val alarme: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        calendar.set(
+            calendar.get(Calendar.YEAR)
+            , calendar.get(Calendar.MONTH)
+            , calendar.get(Calendar.DAY_OF_MONTH)
+            , calendar.get(Calendar.HOUR_OF_DAY),0)
+
+        val alarme: AlarmManager =  getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarme.setRepeating(
             AlarmManager.RTC, calendar.timeInMillis, 1000 * 60 * 15
-            , PendingIntent.getActivity(applicationContext, 45, Intent("android.intent.action.covidzero.covidzero.ActivityAlarme")
-                , PendingIntent.FLAG_UPDATE_CURRENT)
+            , PendingIntent.getActivity(
+                this, 45, Intent("android.intent.action.covidzero.covidzero.InicarNotificao")
+                , PendingIntent.FLAG_UPDATE_CURRENT
+            )
         )
+
+        Toast.makeText(applicationContext," alarme definido ${calendar.get(Calendar.HOUR_OF_DAY)} :00",Toast.LENGTH_SHORT).show()
+
+
+
     }
 
     private fun showDados() {

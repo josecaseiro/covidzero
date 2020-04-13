@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -77,6 +78,9 @@ public class NewMessageNotification {
                 // Provide a large icon, shown with the notification in the
                 // notification drawer on devices running Android 3.0 or later.
                 .setLargeIcon(picture)
+
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setLights(Color.RED, 3000, 3000)
 
                 // Set ticker text (preview) information for this notification.
                 .setTicker(ticker)
