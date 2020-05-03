@@ -113,6 +113,10 @@ class MedirFragment : Fragment() {
 
         updateInfo()
 
+        v.bt_cancelar.setOnClickListener {
+            activity?.finish()
+        }
+
         return v
     }
 

@@ -14,9 +14,9 @@
         android:orientation="vertical">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:lottie_fileName="hand-sanitizer.json"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            app:lottie_fileName="sanitizer.json"
             app:lottie_loop="true"
             app:lottie_autoPlay="true" />
 
@@ -24,22 +24,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
-            android:textAlignment="textStart"
-            android:text="#PREVENÇÃO"
+            android:text="PREVENÇÃO"
             android:layout_marginTop="@dimen/sp_16"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:paddingLeft="@dimen/dp_40"
             android:paddingRight="@dimen/dp_40"
-            android:layout_gravity="start" />
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="@string/slide_3_titulo"
-            android:paddingLeft="@dimen/dp_40"
-            android:paddingRight="@dimen/dp_40"
-            android:fontFamily="@font/font_light"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@android:color/white"/>
 

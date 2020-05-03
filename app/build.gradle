@@ -31,7 +31,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            //minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.multidex:multidex:$multidex_version"
     // Add the In-App Messaging dependency:
     implementation 'com.google.firebase:firebase-inappmessaging-display:18.0.0'
-
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
 
 

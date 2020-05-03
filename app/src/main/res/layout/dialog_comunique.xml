@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/policia"
                     app:icone_4="@drawable/telef"
-                    app:subtitulo="111"
+                    app:subtitulo="113"
                     app:titulo="Denuncie irregularidades" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     app:icone_3="@drawable/ambulancia"
                     app:icone_4="@drawable/telef"
-                    app:subtitulo="113"
+                    app:subtitulo="111"
                     app:titulo="Denuncie casos suspeitos" />
 
                 <ao.covidzero.covidzero.widget.ComuniqueItemWidget

@@ -1,5 +1,6 @@
 package ao.covidzero.covidzero
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,7 +14,7 @@ import retrofit2.Response
 
 class ProfissionaisActivity : AppCompatActivity() {
 
-     lateinit var profissionais:List<Profissional>
+     lateinit var profissionais: MutableList<Profissional>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +55,13 @@ class ProfissionaisActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Profissional>>, response: Response<List<Profissional>>) {
                 Alerter.hide()
                 response.body()?.let {
-                    profissionais = it
+                    profissionais = mutableListOf()
+                    val prefs = getSharedPreferences("COVID", Context.MODE_PRIVATE)
+                    val id = prefs.getString("psId", "");
+                    for (item in it){
+                     if(!item.id.toString().equals(id) )
+                         profissionais.add(item)
+                    }
 
                     val fragmentManager = supportFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()

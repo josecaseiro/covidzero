@@ -151,14 +151,14 @@ class MenuItemFragment : Fragment() {
 
                             dg.denuncie_1.setOnClickListener {
                                 val phoneIntent = Intent(Intent.ACTION_CALL)
-                                phoneIntent.setData(Uri.parse("tel:111"))
+                                phoneIntent.setData(Uri.parse("tel:113"))
                                 dg.dismiss()
                                 checkPermissionAndCall(phoneIntent)
                             }
 
                             dg.denuncie_2.setOnClickListener {
                                 val phoneIntent = Intent(Intent.ACTION_CALL)
-                                phoneIntent.setData(Uri.parse("tel:113"))
+                                phoneIntent.setData(Uri.parse("tel:111"))
                                 dg.dismiss()
                                 checkPermissionAndCall(phoneIntent)
 

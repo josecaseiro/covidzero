@@ -29,6 +29,9 @@ public interface GetDataService {
     @GET("insideGrupo/{id}")
     Call<List<Mensagem>> grupoSms(@Path("id") int id);
 
+    @GET("accaoUser/sms/{user}/{prof}")
+    Call<List<Mensagem>> profSms(@Path("user") String user, @Path("prof") int prof);
+
     @GET("grupos/")
     Call<List<Grupo>> grupos();
 

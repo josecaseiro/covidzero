@@ -1,7 +1,6 @@
 package ao.covidzero.covidzero
 
 import android.content.Context
-import android.net.DnsResolver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +11,13 @@ import ao.covidzero.covidzero.model.Profissional
 import ao.covidzero.covidzero.network.GetDataService
 import ao.covidzero.covidzero.network.HttpClient
 import ao.covidzero.covidzero.network.RetrofitClientInstance
+import com.google.gson.Gson
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import com.tapadoo.alerter.Alerter
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_chat.*
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +29,7 @@ class ChatActivity : AppCompatActivity() {
     private var fragment: MensagemFragment? = null
     var grupo: Grupo? = null
     var profissional:Profissional? = null
-    var mensagens = listOf<Mensagem>()
+    var mensagens = mutableListOf<Mensagem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +59,26 @@ class ChatActivity : AppCompatActivity() {
                     .enableInfiniteDuration(true)
                     .show()
 
-                val id = getSharedPreferences("COVID", Context.MODE_PRIVATE).getString("id","")
+                val id = getSharedPreferences("COVID", Context.MODE_PRIVATE).getString("id",null)
+                val profid = getSharedPreferences("COVID", Context.MODE_PRIVATE).getString("psId",null)
                 val req = RequestParams()
+
+                var to = grupo?.id
+                var route = "insideGrupo/${grupo?.id}"
+
                 req.put("grupo", grupo?.id)
                 req.put("userId", id)
                 req.put("sms", msg)
 
-                HttpClient.post("insideGrupo/${grupo?.id}", req, object : JsonHttpResponseHandler(){
+                if(to == null && profissional != null){
+                    route = "accaoUser/sendSms"
+
+                    req.put("de",  if(id != null) id else profid )
+                    req.put("psId", profissional!!.id)
+                    req.put("userId", if(id != null) id else profid )
+                }
+
+                HttpClient.post(route, req, object : JsonHttpResponseHandler(){
                     override fun onSuccess(
                         statusCode: Int,
                         headers: Array<out Header>?,
@@ -74,6 +88,17 @@ class ChatActivity : AppCompatActivity() {
                         editText.text.clear()
                         Log.d("SMS", response.toString())
                         loadMensagens()
+                        super.onSuccess(statusCode, headers, response)
+                    }
+
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        response: JSONArray?
+                    ) {
+                        response?.let {
+                            Log.d("SMS RESPONSE", it.toString())
+                        }
                         super.onSuccess(statusCode, headers, response)
                     }
 
@@ -110,21 +135,75 @@ class ChatActivity : AppCompatActivity() {
             .enableInfiniteDuration(true)
             .show()
 
-        val service =
-            RetrofitClientInstance.getRetrofitInstance().create(
-                GetDataService::class.java
-            )
 
-        var call:Call<List<Mensagem>>? = null
+        val prefs = getSharedPreferences("COVID", Context.MODE_PRIVATE)
+        val user_id = prefs.getString("id", "")
+        val prof_id = prefs.getString("psId", "");
 
-        if(grupo!=null)
-         call = service.grupoSms(grupo?.id!!)
-        else if (profissional !=null) {
-            call = service.grupoSms(profissional?.id!!)
+        var url = "insideGrupo/${grupo?.id}"
+
+        if (grupo == null) {
+            if (profissional !=null) {
+                url = "accaoUser/sms/$user_id/${profissional!!.id}"
+            }
         }
 
-        call?.enqueue(object : Callback<List<Mensagem>> {
-            override fun onFailure(call: Call<List<Mensagem>>, t: Throwable) {
+        HttpClient.get(url, null, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+
+                response?.let {
+                    Log.d("RES", it.toString())
+                }
+
+                Alerter.create(this@ChatActivity)
+                    .setTitle("Lamentamos")
+                    .setText("Sem mensagens")
+                    .setBackgroundColorRes(R.color.orange)
+                    .show()
+
+            }
+
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONArray?
+            ) {
+                Alerter.hide()
+
+                response?.let {
+
+                    Log.d("Msg", it.toString())
+                    val gson = Gson()
+                    mensagens = mutableListOf()
+
+                    var i = 0
+                    while (i < it.length()){
+                        mensagens.add(gson.fromJson<Mensagem>(it.getJSONObject(i).toString(), Mensagem::class.java ))
+                        i++
+                    }
+
+                    if(mensagens.size > 0) {
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragment = MensagemFragment(mensagens)
+                        fragmentTransaction.replace(R.id.frame, fragment!!)
+                        fragmentTransaction.commit()
+                    }
+                }
+
+                super.onSuccess(statusCode, headers, response)
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
                 Alerter.create(this@ChatActivity)
                     .setTitle("Lamentamos")
                     .setText("Não foi possível carregar mensagens")
@@ -134,30 +213,10 @@ class ChatActivity : AppCompatActivity() {
                     .enableInfiniteDuration(true)
                     .setBackgroundColorRes(R.color.red)
                     .show()
-                t.printStackTrace()
-            }
-
-            override fun onResponse(
-                call: Call<List<Mensagem>>,
-                response: Response<List<Mensagem>>
-            ) {
-
-                Alerter.hide()
-                response.body()?.let {
-                    mensagens = it
-
-                    if(mensagens.size > 0) {
-                        val fragmentManager = supportFragmentManager
-                        val fragmentTransaction = fragmentManager.beginTransaction()
-                        fragment = MensagemFragment(it.toMutableList())
-                        fragmentTransaction.replace(R.id.frame, fragment!!)
-                        fragmentTransaction.commit()
-                    }
-                }
-
-
+                throwable?.printStackTrace()
             }
         })
+
 
 
 

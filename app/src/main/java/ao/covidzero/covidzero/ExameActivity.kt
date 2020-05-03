@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ao.covidzero.covidzero.exame.*
+import kotlinx.android.synthetic.main.dialog_temperature.*
 
 class ExameActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class ExameActivity : AppCompatActivity() {
 
         val fragment = ComoEstasFragment()
         show(fragment)
+
     }
 
     fun show(frag:Fragment){

@@ -1,13 +1,11 @@
 package ao.covidzero.covidzero
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.SearchView
+import android.widget.SimpleCursorAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -21,7 +19,6 @@ import com.mapbox.android.core.location.LocationEngineRequest
 import com.mapbox.android.core.location.LocationEngineResult
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
-import com.mapbox.geojson.FeatureCollection
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -38,7 +35,6 @@ import com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.mapboxsdk.utils.BitmapUtils
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_map.*
@@ -46,11 +42,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.Serializable
-import java.lang.Exception
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener,
-    LocationEngineCallback<LocationEngineResult> {
+    LocationEngineCallback<LocationEngineResult>, SearchView.OnQueryTextListener {
 
     private  var style: Style? = null
     private var mapView: MapView? = null
@@ -75,6 +70,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
         mapView?.getMapAsync(this)
 
         loadProvincias()
+
+        search.setOnQueryTextListener(this)
+
+
 
     }
 
@@ -132,6 +131,22 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
                 provincias = response.body()
                 showLoading(false)
                 showTentar(false)
+
+                val sugs = mutableListOf<String>()
+
+                provincias?.let {
+                    for (prov in it.iterator()){
+                        sugs.add(prov.nome)
+                    }
+                }
+
+                search.suggestionsAdapter = SimpleCursorAdapter(
+                    this@MapActivity,
+                    android.R.layout.simple_list_item_1,
+                    null, sugs.toTypedArray(), intArrayOf(android.R.id.text1),
+                    0
+                )
+
 
                 Alerter.create(this@MapActivity)
                     .setTitle("Tudo pronto")
@@ -419,6 +434,41 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, PermissionsListener
 
         locationEngine.requestLocationUpdates(request, this, getMainLooper());
         locationEngine.getLastLocation(this);
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let {
+            print("submited")
+            if(provincias!=null){
+                var prov:Provincia? = null
+                for (item in provincias!!)
+                    if(item.nome.toLowerCase().contains(it.toLowerCase())){
+                        prov = item;
+                    }
+
+                if(prov != null){
+                    loadProvinciaData(prov.nome)
+
+                    val position = CameraPosition.Builder()
+                        .target(LatLng(prov.getLat(), prov.getLong())) // Sets the new camera position
+                        .zoom(9.0) // Sets the zoom
+                        .tilt(30.0) // Set the camera tilt
+                        .build(); // Creates a CameraPosition from the builder
+
+
+                    mapboxMap?.animateCamera(
+                        CameraUpdateFactory
+                            .newCameraPosition(position), 4000
+                    );
+                }
+            }
+        }
+
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+                return false
     }
 
 

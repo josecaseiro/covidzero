@@ -50,7 +50,7 @@ class MensagemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mNome.text = item.nome
+        holder.mNome.text = item.nome ?: item.nome2
         holder.mMensagem.text = item.mensagem
         holder.mData.text = item.data
 

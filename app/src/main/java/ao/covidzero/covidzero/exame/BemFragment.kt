@@ -1,14 +1,17 @@
 package ao.covidzero.covidzero.exame
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ao.covidzero.covidzero.ExameActivity
+import ao.covidzero.covidzero.ProfissionaisActivity
 
 import ao.covidzero.covidzero.R
 import kotlinx.android.synthetic.main.fragment_bem.view.*
+import kotlinx.android.synthetic.main.fragment_mal.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +42,15 @@ class BemFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_bem, container, false)
-        v.bt_medir.setOnClickListener {
+
+        v.bt_medir2.setOnClickListener {
             (activity as ExameActivity).show(MedirFragment())
+        }
+
+        v.bt_ajuda_bem.setOnClickListener {
+            startActivity(
+                Intent(activity, ProfissionaisActivity::class.java)
+            )
         }
 
         return v

@@ -8,6 +8,22 @@
     tools:context=".exame.ComoEstasFragment">
 
 
+    <Button
+        android:id="@+id/bt_ajuda_mal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bt_rounded_shape_white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Ajuda médica"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_medir" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
