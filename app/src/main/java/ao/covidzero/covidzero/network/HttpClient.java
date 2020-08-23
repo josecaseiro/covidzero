@@ -6,7 +6,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class HttpClient {
-    private static final String BASE_URL = "http://appcovid-zero.com/api/";
+    private static final String BASE_URL = "http://khonshimamining.ao/covid-zero/api/"; //"http://appcovid-zero.com/api/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
