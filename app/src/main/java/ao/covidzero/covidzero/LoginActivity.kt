@@ -21,6 +21,8 @@ import ao.covidzero.covidzero.network.HttpClient
 import ao.covidzero.covidzero.network.LoginBody
 import ao.covidzero.covidzero.network.RetrofitClientInstance
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.loopj.android.http.JsonHttpResponseHandler
@@ -36,8 +38,16 @@ import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
+    enum class Processo {
+        LOGIN,
+        CADASTRO
+    }
+
     lateinit var tt:List<View>
     var tela = 0
+    var token:String? = null
+    var processo = Processo.LOGIN
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,9 +180,65 @@ class LoginActivity : AppCompatActivity() {
         bt_cadastrar.visibility =  if(!boolean) View.VISIBLE else View.GONE
     }
 
+    fun finishCadastro( phone:String){
+        val params = RequestParams()
+        params.put("telefone", phone)
+        params.put("senha", phone)
+        params.put("nome", nome)
+
+        HttpClient.post("usuarios/", params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+                Log.d("CADASTRO", "${response?.toString()}" )
+
+                shoLoading(false)
+
+                response?.let {
+                    if(it.getString("Status") != "Erro") {
+                        Alerter.create(this@LoginActivity)
+                            .setTitle("Conta criada com sucesso")
+                            .setText("Inicie sessão por favor")
+                            .setBackgroundColorRes(R.color.green)
+                            .setDuration(10000)
+                            .show()
+
+                        covidLogin(phone, phone)
+                    }
+                    else Alerter.create(this@LoginActivity)
+                        .setTitle("Lamentamos")
+                        .setText(it.getString("Messagem"))
+                        .setBackgroundColorRes(R.color.orange)
+                        .setDuration(10000)
+                        .show()
+                }
+
+
+                tt_entrar.callOnClick()
+
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
+                Alerter.hide()
+                mostrarErro("Não foi possível criar a sua conta. Tente de novo por favor.")
+                super.onFailure(statusCode, headers, responseString, throwable)
+            }
+        })
+
+    }
+
     private fun makeCadastro() {
 
         shoLoading()
+        processo = Processo.CADASTRO
 
         Alerter.create(this@LoginActivity)
             .setTitle("A criar conta")
@@ -205,6 +271,8 @@ class LoginActivity : AppCompatActivity() {
 
                     override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                         Log.i("CODIGO ENVIADO", p0)
+                        token = p0
+                        startActivityForResult(Intent(this@LoginActivity, NumberVerification::class.java), 1000)
                     }
 
                     override fun onCodeAutoRetrievalTimeOut(p0: String) {
@@ -213,58 +281,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                        val params = RequestParams()
-                        params.put("telefone", phone)
-                        params.put("senha", phone)
-                        params.put("nome", nome)
-
-                        HttpClient.post("usuarios", params, object : JsonHttpResponseHandler() {
-                            override fun onSuccess(
-                                statusCode: Int,
-                                headers: Array<out Header>?,
-                                response: JSONObject?
-                            ) {
-                                super.onSuccess(statusCode, headers, response)
-                                Log.d("CADASTRO", "${response?.toString()}" )
-
-                                shoLoading(false)
-
-                                response?.let {
-                                    if(it.getString("Status") != "Erro") {
-                                        Alerter.create(this@LoginActivity)
-                                            .setTitle("Conta criada com sucesso")
-                                            .setText("Inicie sessão por favor")
-                                            .setBackgroundColorRes(R.color.green)
-                                            .setDuration(10000)
-                                            .show()
-
-                                        covidLogin(phone, phone)
-                                    }
-                                    else Alerter.create(this@LoginActivity)
-                                        .setTitle("Lamentamos")
-                                        .setText(it.getString("Messagem"))
-                                        .setBackgroundColorRes(R.color.orange)
-                                        .setDuration(10000)
-                                        .show()
-                                }
-
-
-                                tt_entrar.callOnClick()
-
-                            }
-
-                            override fun onFailure(
-                                statusCode: Int,
-                                headers: Array<out Header>?,
-                                responseString: String?,
-                                throwable: Throwable?
-                            ) {
-                                Alerter.hide()
-                                mostrarErro("Não foi possível criar a sua conta. Tente de novo por favor.")
-                                super.onFailure(statusCode, headers, responseString, throwable)
-                            }
-                        })
-
+                        finishCadastro(phone)
                     }
                 })
 
@@ -274,6 +291,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun phonelogin(phone: String){
+        processo = Processo.LOGIN
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             "+244$phone", // Phone number to verify
             60, // Timeout duration
@@ -292,6 +310,8 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                     Log.i("CODIGO ENVIADO", p0)
+                    token = p0
+                    startActivityForResult(Intent(this@LoginActivity, NumberVerification::class.java), 1000)
                 }
 
                 override fun onCodeAutoRetrievalTimeOut(p0: String) {
@@ -300,6 +320,42 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             })
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("AUTH", "signInWithCredential:success")
+                    val user = task.result?.user
+
+                    if(processo == Processo.LOGIN)
+                        covidLogin(edt_phone.text.toString(),edt_phone.text.toString())
+                    else finishCadastro(edt_phone.text.toString())
+                    // ...
+                } else {
+                    // Sign in failed, display a message and update the UI
+                    Log.w("AUTH", "signInWithCredential:failure", task.exception)
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        // The verification code entered was invalid
+                    }
+                }
+            }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 1000){
+            val code = data?.getStringExtra("code")
+            print(code)
+            if(code != null && token != null){
+
+                val credential = PhoneAuthProvider.getCredential(token.toString(), code)
+                signInWithPhoneAuthCredential(credential)
+
+            }
+        }
     }
 
     private fun makeLogin() {

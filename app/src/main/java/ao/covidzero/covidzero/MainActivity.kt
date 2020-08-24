@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadDados() {
 
-        HttpClient.get("dados", null, object : JsonHttpResponseHandler() {
+        HttpClient.get("dados/", null, object : JsonHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
